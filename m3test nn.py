@@ -229,19 +229,6 @@ best_model.build(input_shape=(*IMAGE_SIZE, 3))
 
 print(best_model.summary())
 
-best_model_history = best_model.fit(
-    train_ds, 
-    validation_data=valid_ds,
-    epochs=100,
-    callbacks = [
-        callbacks.EarlyStopping(patience=3, restore_best_weights=True),
-        callbacks.ModelCheckpoint('StandardOCR-ResNet50V2.h5', save_best_only=True)
-    ]
-)
-
-print(best_model.evaluate(valid_ds))
-
-print(best_model.evaluate(test_ds))
 
 
 backbone = tka.ResNet50V2(include_top=False, weights='imagenet', input_shape=(*IMAGE_SIZE, 3))
@@ -277,3 +264,5 @@ history = model.fit(
 )
 
 model.evaluate(test_ds)
+
+show_images(data=test_ds, model=model)
