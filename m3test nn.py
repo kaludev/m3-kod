@@ -4,7 +4,13 @@ import tensorflow as tf
 from tensorflow import keras 
 import numpy as np
 import matplotlib.pyplot as plt
+from glob import glob
+from tqdm import tqdm 
 from kaggle.api.kaggle_api_extended import KaggleApi
+from keras import applications as tka
+import keras_tuner as kt
+from keras import callbacks
+from keras import layers
 tfd = tf.data
 
 #download kaggle dataset 
@@ -128,3 +134,146 @@ def load_data(root_path, class_names, trim=None, shuffle=False, split=None):
         
         # Return complete data
         return data_set
+    
+train_ds = load_data(root_path=train_path, class_names=class_names, trim=300, shuffle=True)
+
+# Load Validation data
+test_ds, valid_ds = load_data(root_path=test_path, class_names=class_names, shuffle=True, split=0.2)
+
+print(f"Training Data Size   : {tf.data.experimental.cardinality(train_ds).numpy() * BATCH_SIZE}")
+print(f"Validation Data Size : {tf.data.experimental.cardinality(valid_ds).numpy() * BATCH_SIZE}")
+print(f"Testing Data Size    : {tf.data.experimental.cardinality(test_ds).numpy() * BATCH_SIZE}")
+
+
+def show_images(data, GRID=[8,8], FIGSIZE=(20,20), model=None):
+    
+    
+    # Plotting configurations
+    plt.figure(figsize=FIGSIZE)
+    n_images = GRID[0] * GRID[-1]
+    
+    # Get the data for data visualization
+    images, labels = next(iter(data))
+    
+    # Iterate over data 
+    for n_image, (image, label) in enumerate(zip(images, labels)):
+        
+        # Plot the image into the subplot.
+        plt.subplot(GRID[0], GRID[1], n_image+1)
+        plt.imshow(tf.squeeze(image))
+        plt.axis('off')
+        
+        # Adding the title
+        if model is not None:
+            image = tf.expand_dims(image, axis=0)
+            pred = model.predict(image)[0]
+            max_index = tf.argmax(pred)
+            score = pred[max_index]
+            pred_label = class_names[max_index]
+            title = "Pred : {}\nScore : {:.4}".format(pred_label, score)
+            plt.title(title)
+        
+        # Break the loop 
+        if n_image+1>=n_images:
+            break
+    
+    # Show the final plot
+    plt.tight_layout()
+    plt.show()
+
+show_images(data = valid_ds)
+
+
+
+def build_model(hp):
+    
+    # Backbone
+    backbone = tka.ResNet50V2(include_top=False, weights='imagenet', input_shape=(*IMAGE_SIZE, 3))
+    backbone.trainable = False
+    
+    # Base Model
+    model = keras.Sequential(layers=[
+        keras.layers.InputLayer(input_shape=(*IMAGE_SIZE, 3), name="InputLayer"),
+        backbone,                                                            # ResNet50V2
+        keras.layers.GlobalAveragePooling2D(name="GAP"),
+    ])
+    
+    # Params to tweak
+    for i in range(hp.Choice('n_layers', [1,2,4])):
+        model.add(keras.layers.Dense(hp.Choice('n_units', [64, 256])))
+    model.add(keras.layers.Dropout(hp.Choice('rate', [0.2,0.4])))
+    
+    # Output layer
+    model.add(keras.layers.Dense(len(class_names), activation='softmax'))
+    
+    # Compile the model.
+    model.compile(
+        loss='sparse_categorical_crossentropy',
+        optimizer=keras.optimizers.Adam(),
+        metrics=['accuracy']
+    )
+    
+    return model
+
+tuner = kt.RandomSearch(hypermodel=build_model, objective='val_loss', project_name='ResNet50V2-OCR-3')
+
+# Start hyperparameter search.
+tuner.search(
+    train_ds, 
+    validation_data=valid_ds,
+    epochs = 5
+)
+
+best_model = tuner.get_best_models()[0]
+best_model.build(input_shape=(*IMAGE_SIZE, 3))
+
+print(best_model.summary())
+
+best_model_history = best_model.fit(
+    train_ds, 
+    validation_data=valid_ds,
+    epochs=100,
+    callbacks = [
+        callbacks.EarlyStopping(patience=3, restore_best_weights=True),
+        callbacks.ModelCheckpoint('StandardOCR-ResNet50V2.h5', save_best_only=True)
+    ]
+)
+
+print(best_model.evaluate(valid_ds))
+
+print(best_model.evaluate(test_ds))
+
+
+backbone = tka.ResNet50V2(include_top=False, weights='imagenet', input_shape=(*IMAGE_SIZE, 3))
+backbone.trainable = True
+
+# Base Model
+model = keras.Sequential(layers=[
+    layers.InputLayer(input_shape=(*IMAGE_SIZE, 3), name="InputLayer"),
+    backbone,                                                            # ResNet50V2
+    layers.GlobalAveragePooling2D(name="GAP"),
+    layers.Dense(64),
+    layers.Dense(64),
+    layers.Dropout(0.4),
+    layers.Dense(len(class_names), activation='softmax')
+])
+
+# Compile the model.
+model.compile(
+    loss='sparse_categorical_crossentropy',
+    optimizer=keras.optimizers.Adam(learning_rate=1e-5),
+    metrics=['accuracy']
+)
+
+# History 
+history = model.fit(
+    train_ds, 
+    validation_data=valid_ds,
+    epochs=100,
+    callbacks = [
+        callbacks.EarlyStopping(patience=3, restore_best_weights=True),
+        callbacks.ModelCheckpoint('StandardOCR-ResNet50V2-2.h5', save_best_only=True)
+    ]
+)
+
+model.evaluate(test_ds)
