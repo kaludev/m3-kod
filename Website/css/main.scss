@@ -1,0 +1,185 @@
+$pure-black: hsla(0, 0%, 0%, 1);
+$black: hsla(0, 0%, 5%, 1);
+$white: hsla(0, 0%, 95%, 1);
+$pure-white: hsla(0, 0%, 100%, 1);
+
+
+
+            /* ELEMENTS */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+a, button, h1, h2, h3, h4, h5, h6, input, p {
+    font-family: 'Montserrat', sans-serif;
+    color: $black;
+}
+
+h1 {
+    font-size: 5rem;
+}
+
+h2 {
+    font-size: 4.5rem;
+}
+
+h3 {
+    font-size: 4rem;    
+}
+
+h4 {
+    font-size: 3.5rem;
+}
+
+
+
+            /* CLASSES & IDS */
+
+
+        /* SPLASH SCREEN */
+
+#splash-screen {
+    // visibility: hidden;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: $black;
+    transition: 1s;
+}
+
+#splash-screen_heading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%,);
+    color: $white;
+    font-size: 5rem;
+}
+
+.splash-screen_heading-text {
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+}
+
+.splash-screen_heading-text.active {
+    bottom: 0;
+    opacity: 1;
+    transition: ease-in-out 0.5s;
+}
+.splash-screen_heading-text.fade {
+    bottom: 150px;
+    opacity: 0;
+    transition: ease-in-out 0.5s;
+}
+
+
+        /* BODY */
+
+#content_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 90vh;
+    background-color: $white;
+}
+
+#content_container {
+    padding: 0 5rem;
+}
+
+
+        /* NAVIGATION */
+
+#navigation_container {
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    height: 100%;
+    padding-top: 5rem;
+}
+
+.navigation_nav-item {
+    opacity: 0.25;
+    transition: 0.5s;
+}
+.navigation_nav-item:hover {
+    opacity: 0.5;
+}
+.navigation_nav-item:active {
+    opacity: 0.75;
+}
+
+
+        /* CONTENT */
+
+#aside_container {
+    display: flex;
+    flex-direction: column;
+    width: 66%;
+    height: 100%;
+}
+
+    /* CARDS */
+
+#cards_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.card_container {
+    display: flex;
+    flex-direction: column;
+    width: 512px;
+    height: 512px;
+    border: 5px solid $black;
+    border-radius: 10px;
+}
+
+.card-image_container {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+}
+
+.card-text_container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    border: 5px solid $black;
+    border-radius: 5px;
+    height: 50%;
+}
+
+.card-headline {
+    font-size: 1.75rem;
+}
+
+.card-subheadline {
+    font-size: 1.5rem;
+}
+
+.card-text {
+    font-size: 1.25rem;
+}
+
+
+        /* FOOTER */
+
+#footer_container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 10vh;
+    background-color: $black;
+}

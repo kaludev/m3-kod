@@ -1,0 +1,31 @@
+#body-acts-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100vh;
+    background-color: hsl(0, 0%, 95%);
+}
+
+#acts-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    gap: 1rem;
+    height: 100vh;
+}
+
+.act-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid hsla(0, 0%, 5%, 1);
+    background-color: transparent;
+    color: hsla(0, 0%, 5%, 1);
+    width: 3rem;
+}
+
+.act-container a {
+    text-decoration: none;
+}
