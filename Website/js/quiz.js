@@ -1,7 +1,7 @@
 import data from '../data/data.json' assert {type:'json'};
-
+let answering = true;
 const shuffledData = data.sort((a, b) => 0.5 - Math.random());
-let currentIndex = 0;
+let currentIndex = -1;
 let time = 30;
 let interval;
 let question = document.querySelector('#quiz-question');
@@ -24,26 +24,50 @@ const reloadQuestion = () => {
             quizAnswer.appendChild(h5);
             quizAnswers.appendChild(quizAnswer);
         })
-        time = 30;
-        timer.textContent = time;
-        clearInterval(interval)
-        interval = setInterval(() => {
-            time--;
-            timer.textContent = time;
-            if(time === 0){
-                currentIndex++;
-                reloadQuestion();
-            }
-        },1000)
+    }else{
+
     }
 }
+let nextQuestion = () =>{
+    currentIndex++;
+    reloadQuestion();
+    time = 30;
+    timer.textContent = time;
+    if(interval){
+        clearInterval(interval);
+        interval = null;
+    }
+    interval = setInterval(() => {
+        time--;
+        timer.textContent = time;
+        if(time === 0){
+            nextQuestion()
+        }
+    },1000)
 
-reloadQuestion();
+}
+
+nextQuestion();
 
 
 let buttonNext = document.querySelector('#quiz-buttonNext');
 
 buttonNext.addEventListener('click', () =>{
-    currentIndex++;
-    reloadQuestion();
+    if(answering){
+        if(interval){
+            clearInterval(interval);
+            interval = null;
+        }
+        shuffledData[currentIndex]['correct-answers'].forEach(correctAnswer =>{
+           quizAnswers.querySelectorAll('.quiz-answer').forEach(quizAnswer => {
+            if(quizAnswer.querySelector('input').value === correctAnswer){
+                quizAnswer.style.backColor = "green";
+            }
+            console.log(quizAnswer)
+           })
+        })
+    }else{
+        nextQuestion(); 
+    }
+    answering = !answering
 })
