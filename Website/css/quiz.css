@@ -19,13 +19,13 @@
 #quiz-container {
     justify-content: end;
     width: 50%;
-    height: 100%;
+    height: fit-content;
     border: 2px solid black;
 }
 
 #quiz-body-container {
     width: 100%;
-    height: 90vh;
+    height: fit-content;
 }
 
 #quiz-header-container {
@@ -57,7 +57,7 @@
     padding: 2rem;
     border: 2px solid black;
     width: 100%;
-    height: 40vh;
+    height: fit-content;
 }
 
 #quiz-footer-container {
