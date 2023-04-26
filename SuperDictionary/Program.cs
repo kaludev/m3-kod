@@ -12,11 +12,11 @@ using iTextSharp.text.pdf;
 using iTextSharp.text.pdf.parser;
 using Newtonsoft.Json;
 
-namespace PDFParser
+namespace SuperDictionary
 {
     internal class Program
     {
-        private static string separator = new string('-', 64);
+        private static string separator = new string('-', 144);
         private static int counter_written = 0, counter_loaded = 0;
 
         private static void countWordsInString(ref string[] words, ref Dictionary<string, int> singleDictionary)
@@ -237,6 +237,8 @@ namespace PDFParser
                     // INPUT PREPARATION
                 if (!Directory.Exists(@"input"))
                 {
+                    Directory.CreateDirectory(@"input");
+
                     Exception InputFolderNotFound =
                     new Exception("404: Input folder has initially not been found, but the folder has been created automatically." +
                     "\nFix: Navigate to bin/Debug/net6.0/input, place PDF files into the folder, and start the program again.");
@@ -244,12 +246,12 @@ namespace PDFParser
                     throw InputFolderNotFound;
                 }
 
-                string[] files_input = Directory.GetFiles(@"input", "*");
+                string[] files_input = Directory.GetFiles(@"input", "*.pdf");
 
                 if (files_input.Length == 0)
                 {
                     Exception InputFolderEmpty =
-                    new Exception("411: Input folder has been found, but the folder is empty." +
+                    new Exception("411: Input folder has been found, but the folder is empty or does not contain any PDF files." +
                     "\nFix: Navigate to bin/Debug/net6.0/input, place PDF files into the folder, and start the program again.");
 
                     throw InputFolderEmpty;
@@ -263,15 +265,6 @@ namespace PDFParser
                     // INPUT FILE ITERATIONS
                 foreach (string file_input in files_input)
                 {
-                    if (System.IO.Path.GetExtension(file_input) != ".pdf")
-                    {
-                        Exception InputWrongExtension =
-                        new Exception("415: Input folder has been found, but the folder contains files of extensions other than \".pdf\"." +
-                        "\nFix: Navigate to bin/Debug/net6.0/input, delete all non-PDF files, place PDF files into the folder, and start the program again.");
-
-                        throw InputWrongExtension;
-                    }
-
                     string fileName = System.IO.Path.GetFileNameWithoutExtension(file_input);
 
                     fileName = System.IO.Path.GetFileName(fileName);
@@ -297,13 +290,6 @@ namespace PDFParser
                     {
                         if (!File.Exists(@$"output\{fileName}_dictionary.json"))
                         {
-                            /*File.Create(@$"output\{fileName}.txt").Close();
-
-                            System.IO.File.WriteAllText(@$"output\{fileName}.txt", s);
-
-                            Console.WriteLine("201: Word count written into a JSON file successfully.");*/
-
-
                             string[] words = s.Split(" ");
                             for (int w = 0; w < words.Length; w++) words[w] = words[w].ToLower();
 
@@ -359,7 +345,7 @@ namespace PDFParser
             catch (Exception error)
             {
                 Console.WriteLine(error.Message);
-                Directory.CreateDirectory(@"input");
+                Console.WriteLine(Program.separator);
             }
         }
     }
