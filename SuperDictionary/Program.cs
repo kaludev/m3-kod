@@ -147,10 +147,6 @@ namespace SuperDictionary
             try
             {
                 int totalItems = 0;
-                foreach (Dictionary<string, int> singleDictionary in superDictionary_Array)
-                {
-                    totalItems += singleDictionary.Count();
-                }
                 int processedItems = 1;
                 int progress = 0;
                 bool isFirstIteration = true;
@@ -170,51 +166,57 @@ namespace SuperDictionary
                     }
                 }
 
+                IOrderedEnumerable<KeyValuePair<string, int>> superDictionary_Enumerable =
+                                superDictionary.OrderByDescending(x => x.Value).ThenBy(x => x.Key.Length).ThenBy(x => x.Key);
+                superDictionary = superDictionary_Enumerable.ToDictionary(x => x.Key, x => x.Value);
+
+                foreach (KeyValuePair<string, int> entry in superDictionary)
+                {
+                    totalItems++;
+                }
+
 
                 // WRITING SUPERDICTIONARY INTO A JSON FILE
-                foreach (Dictionary<string, int> singleDictionary in superDictionary_Array)
+                foreach (KeyValuePair<string, int> entry in superDictionary)
                 {
-                    foreach (KeyValuePair<string, int> entry in singleDictionary)
+                    // PROGRESS INDICATOR
+                    progress = (int)((double)processedItems / totalItems * 100);
+                    Console.SetCursorPosition(0, Console.CursorTop);
+                    Console.Write("[{0}{1}] {2}% ({3}/{4})", new string('=', progress / 2),
+                        new string(' ', 50 - (progress / 2)), progress, processedItems, totalItems);
+
+
+                    string entry_string = $"\t\"{entry.Key}\": \"{entry.Value}\",\n";
+
+
+                    // FIRST ITERATION WRITING
+                    if (isFirstIteration)
                     {
-                        // PROGRESS INDICATOR
-                        progress = (int)((double)processedItems / totalItems * 100);
-                        Console.SetCursorPosition(0, Console.CursorTop);
-                        Console.Write("[{0}{1}] {2}% ({3}/{4})", new string('=', progress / 2),
-                            new string(' ', 50 - (progress / 2)), progress, processedItems, totalItems);
+                        string fileContent = File.ReadAllText(@$"output\SuperDictionary.json");
 
-
-                        string entry_string = $"\t\"{entry.Key}\": \"{entry.Value}\",\n";
-
-
-                        // FIRST ITERATION WRITING
-                        if (isFirstIteration)
+                        if (!string.IsNullOrEmpty(fileContent))
                         {
-                            string fileContent = File.ReadAllText(@$"output\SuperDictionary.json");
-
-                            if (!string.IsNullOrEmpty(fileContent))
-                            {
-                                File.WriteAllText(@$"output\SuperDictionary.json", string.Empty);
-                            }
-
-                            File.WriteAllText(@$"output\SuperDictionary.json", "{\n");
-
-                            isFirstIteration = false;
+                            File.WriteAllText(@$"output\SuperDictionary.json", string.Empty);
                         }
 
+                        File.WriteAllText(@$"output\SuperDictionary.json", "{\n");
 
-                        // LAST ITERATION WRITING
-                        if (entry.Equals(superDictionary.Last()))
-                        {
-                            entry_string = $"\t\"{entry.Key}\": \"{entry.Value}\"\n";
-                            System.IO.File.AppendAllText(@$"output\SuperDictionary.json", entry_string);
-                            System.IO.File.AppendAllText(@$"output\SuperDictionary.json", "}");
-                        }
-                        // SUCCESSIVE ITERATION WRITING
-                        else System.IO.File.AppendAllText(@$"output\SuperDictionary.json", entry_string);
-
-
-                        processedItems++;
+                        isFirstIteration = false;
                     }
+
+
+                    // LAST ITERATION WRITING
+                    if (entry.Equals(superDictionary.Last()))
+                    {
+                        entry_string = $"\t\"{entry.Key}\": \"{entry.Value}\"\n";
+                        System.IO.File.AppendAllText(@$"output\SuperDictionary.json", entry_string);
+                        System.IO.File.AppendAllText(@$"output\SuperDictionary.json", "}");
+                    }
+                    // SUCCESSIVE ITERATION WRITING
+                    else System.IO.File.AppendAllText(@$"output\SuperDictionary.json", entry_string);
+
+
+                    processedItems++;
                 }
 
                 Console.WriteLine("\n201: Super dictionary written into a JSON file successfully.");
