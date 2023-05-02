@@ -1,9 +1,9 @@
 const keyboard = document.querySelector('.keyboard');
-
+const inputed = document.querySelector('.inputed');
 const keyboardLayout = [
     ['q','w','e','r','t','y','u','i','o','p'],
-      ['a','s','d','f','g','h','j','k','l'],
-    ['z','x','c','v','b','n','m','backspace']
+      ['a','s','d','f','g','h','j','k','l','Enter'],
+    ['z','x','c','v','b','n','m','Backspace']
 ]
 let selected = {x:0,y:0};
 const createKeyboard = () => {
@@ -57,6 +57,14 @@ document.addEventListener("keydown" , (event) =>{
         selected.x++;
         selected.x =  ((selected.x%keyboardLayout[selected.y].length)+keyboardLayout[selected.y].length)%keyboardLayout[selected.y].length; 
         reloadSelected();
+    }else if(keyName == "Enter"){
+        if(keyboardLayout[selected.y][selected.x] === 'Backspace'){
+            if(inputed.textContent.length > 0){
+                inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
+            }
+        }else{
+            inputed.textContent += keyboardLayout[selected.y][selected.x];
+        }
     }
 } )
 
