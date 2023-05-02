@@ -1,0 +1,18 @@
+
+
+.keyboard{
+    display: flex;
+    flex-direction: column;
+}
+.keyboardRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.keyboardKey{
+    margin: 15px 3%;
+}
+
+.selected{
+    color: red;
+}

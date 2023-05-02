@@ -152,6 +152,7 @@ loadQuestion(0)
 
 let i = 0
 let score = 0;
+setCookie("score",score.toString(),1);
 let buttonNext = document.getElementById('quiz-buttonNext');
 document.addEventListener("keydown", (event) =>{
     const keyName = event.key
@@ -159,33 +160,18 @@ document.addEventListener("keydown", (event) =>{
         if(questions[i]["correct-answer"] === answs[chosenIndex].nodeValue){
             score++;
             setCookie("score",score.toString(),1);
-            console.log(document.cookie);
         }
+        i++
         startChanging()
         if (i<questions.length){
-            i++
             loadQuestion(i)
-        }
-        else{
+        }else{
             location.href = "/end.html"
         }
     }
     
     
 })
-
-let answering = true;
-// const shuffledData = data.sort((a, b) => 0.5 - Math.random());
-let currentIndex = -1;
-let time = 30;
-let interval;
-let question = document.querySelector('#quiz-question');
-let quizAnswers = document.querySelector('#quiz-answers-container')
-const timer = document.querySelector('#quiz-timer');
-// 
-
-
-
 
 function setCookie(name,value,days) {
     let expires = "";
