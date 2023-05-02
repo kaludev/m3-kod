@@ -5,17 +5,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 from glob import glob
 from tqdm import tqdm 
-from kaggle.api.kaggle_api_extended import KaggleApi
-from keras import applications as tka
-import keras_tuner as kt
-from keras import callbacks
-from keras import layers
 tfd = tf.data
 
-#download kaggle dataset 
-api = KaggleApi()
-api.authenticate()
-api.dataset_download_files('preatcher/standard-ocr-dataset',unzip=True)
+model = keras.models.load_model('./StandardOCR-ResNet50V2.h5')
 
 # The batch size
 BATCH_SIZE = 64
@@ -28,7 +20,7 @@ BUFFER = 1000
 # Autotuning
 AUTOTUNE = tfd.AUTOTUNE
 
-#paths to dataset files
+
 train_path = "./data/training_data/"
 test_path  = "./data/testing_data/"
 class_names = sorted(os.listdir(train_path))
@@ -183,85 +175,5 @@ def show_images(data, GRID=[8,8], FIGSIZE=(20,20), model=None):
 show_images(data = valid_ds)
 
 
-
-def build_model(hp):
-    
-    # Backbone
-    backbone = tka.ResNet50V2(include_top=False, weights='imagenet', input_shape=(*IMAGE_SIZE, 3))
-    backbone.trainable = False
-    
-    # Base Model
-    model = keras.Sequential(layers=[
-        keras.layers.InputLayer(input_shape=(*IMAGE_SIZE, 3), name="InputLayer"),
-        backbone,                                                            # ResNet50V2
-        keras.layers.GlobalAveragePooling2D(name="GAP"),
-    ])
-    
-    # Params to tweak
-    for i in range(hp.Choice('n_layers', [1,2,4])):
-        model.add(keras.layers.Dense(hp.Choice('n_units', [64, 256])))
-    model.add(keras.layers.Dropout(hp.Choice('rate', [0.2,0.4])))
-    
-    # Output layer
-    model.add(keras.layers.Dense(len(class_names), activation='softmax'))
-    
-    # Compile the model.
-    model.compile(
-        loss='sparse_categorical_crossentropy',
-        optimizer=keras.optimizers.Adam(),
-        metrics=['accuracy']
-    )
-    
-    return model
-
-tuner = kt.RandomSearch(hypermodel=build_model, objective='val_loss', project_name='ResNet50V2-OCR-3')
-
-# Start hyperparameter search.
-tuner.search(
-    train_ds, 
-    validation_data=valid_ds,
-    epochs = 5
-)
-
-best_model = tuner.get_best_models()[0]
-best_model.build(input_shape=(*IMAGE_SIZE, 3))
-
-print(best_model.summary())
-
-
-
-backbone = tka.ResNet50V2(include_top=False, weights='imagenet', input_shape=(*IMAGE_SIZE, 3))
-backbone.trainable = True
-
-# Base Model
-model = keras.Sequential(layers=[
-    layers.InputLayer(input_shape=(*IMAGE_SIZE, 3), name="InputLayer"),
-    backbone,                                                            # ResNet50V2
-    layers.GlobalAveragePooling2D(name="GAP"),
-    layers.Dense(64),
-    layers.Dense(64),
-    layers.Dropout(0.4),
-    layers.Dense(len(class_names), activation='softmax')
-])
-
-# Compile the model.
-model.compile(
-    loss='sparse_categorical_crossentropy',
-    optimizer=keras.optimizers.Adam(learning_rate=1e-5),
-    metrics=['accuracy']
-)
-
-# History 
-history = model.fit(
-    train_ds, 
-    validation_data=valid_ds,
-    epochs=100,
-    callbacks = [
-        callbacks.EarlyStopping(patience=3, restore_best_weights=True),
-        callbacks.ModelCheckpoint('StandardOCR-ResNet50V2-2.h5', save_best_only=True)
-    ]
-)
-
-model.evaluate(test_ds)
 
 show_images(data=test_ds, model=model)
