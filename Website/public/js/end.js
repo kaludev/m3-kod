@@ -29,7 +29,7 @@ const clearSelected = () => {
 const reloadSelected = () => {
     document.querySelectorAll('.keyboardRow')[selected.y].querySelectorAll('.keyboardKey')[selected.x].classList.add('selected');
 }
-document.addEventListener("keydown" , (event) =>{
+document.addEventListener("keydown" , async(event) =>{
     const keyName = event.key;
     if (keyName == "ArrowUp"){
         clearSelected();
@@ -62,6 +62,10 @@ document.addEventListener("keydown" , (event) =>{
             if(inputed.textContent.length > 0){
                 inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
             }
+        }else if(keyboardLayout[selected.y][selected.x] === 'Enter'){
+            const res = await fetch('/addRecord',{
+                
+            })
         }else{
             inputed.textContent += keyboardLayout[selected.y][selected.x];
         }
