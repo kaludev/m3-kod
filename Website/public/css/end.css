@@ -3,6 +3,7 @@
 .keyboard{
     display: flex;
     flex-direction: column;
+    width: 320px;
 }
 .keyboardRow{
     display: flex;
@@ -10,7 +11,7 @@
     justify-content: center;
 }
 .keyboardKey{
-    margin: 15px 3%;
+    padding: 15px 3%;
 }
 
 .selected{

@@ -1,5 +1,7 @@
 const keyboard = document.querySelector('.keyboard');
 const inputed = document.querySelector('.inputed');
+const output = document.querySelector('.output');
+const leaderboard = document.querySelector('.leaderboard');
 const keyboardLayout = [
     ['q','w','e','r','t','y','u','i','o','p'],
       ['a','s','d','f','g','h','j','k','l','Enter'],
@@ -22,6 +24,7 @@ const createKeyboard = () => {
         keyboard.appendChild(row);
     }
 }
+createKeyboard();
 const clearSelected = () => {
     document.querySelector('.selected').classList.remove('selected');
 };
@@ -63,13 +66,55 @@ document.addEventListener("keydown" , async(event) =>{
                 inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
             }
         }else if(keyboardLayout[selected.y][selected.x] === 'Enter'){
+            const score = getCookie("score");
             const res = await fetch('/addRecord',{
-                
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: inputed.textContent,
+                    score: score
+                })
             })
+            const data = await res.json();
+            if(data.ok){
+                output.textContent = "Uspesno sacuvan rezultat"
+            }else{
+                //nadamo se da se nikada nece prikazati xD
+                output.textContent = "greska pri cuvanju rezultata";
+            }
+            reloadBest();
         }else{
             inputed.textContent += keyboardLayout[selected.y][selected.x];
         }
     }
 } )
 
-createKeyboard();
+
+const reloadBest = async () =>{
+    const res = await fetch('/getrecords');
+    const data = await res.json();
+    leaderboard.innerHTML = "";
+    data.users.forEach(element => {
+        const li = document.createElement('li');
+        li.textContent = element.name + ':' + element.score;
+        leaderboard.appendChild(li);
+    });
+}
+
+reloadBest();
+
+function getCookie(name) {
+    let nameEQ = name + "=";
+    let ca = document.cookie.split(';');
+    for(let i=0;i < ca.length;i++) {
+        let c = ca[i];
+        while (c.charAt(0)==' ') c = c.substring(1,c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+    }
+    return null;
+}
+function eraseCookie(name) {   
+    document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
