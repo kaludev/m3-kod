@@ -156,7 +156,7 @@ setCookie("score",score.toString(),1);
 let buttonNext = document.getElementById('quiz-buttonNext');
 document.addEventListener("keydown", (event) =>{
     const keyName = event.key
-    if (keyName == "Enter"){
+    if (keyName == "f"){
         if(questions[i]["correct-answer"] === answs[chosenIndex].nodeValue){
             score++;
             setCookie("score",score.toString(),1);

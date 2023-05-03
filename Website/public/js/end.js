@@ -60,7 +60,7 @@ document.addEventListener("keydown" , async(event) =>{
         selected.x++;
         selected.x =  ((selected.x%keyboardLayout[selected.y].length)+keyboardLayout[selected.y].length)%keyboardLayout[selected.y].length; 
         reloadSelected();
-    }else if(keyName == "Enter"){
+    }else if(keyName == "f"){
         if(keyboardLayout[selected.y][selected.x] === 'Backspace'){
             if(inputed.textContent.length > 0){
                 inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
