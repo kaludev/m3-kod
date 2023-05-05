@@ -153,6 +153,7 @@ loadQuestion(0)
 let i = 0
 let score = 0;
 setCookie("score",score.toString(),1);
+setCookie("uploaded","");
 let buttonNext = document.getElementById('quiz-buttonNext');
 document.addEventListener("keydown", (event) =>{
     const keyName = event.key

@@ -66,25 +66,30 @@ document.addEventListener("keydown" , async(event) =>{
                 inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
             }
         }else if(keyboardLayout[selected.y][selected.x] === 'Enter'){
-            const score = getCookie("score");
-            const res = await fetch('/addRecord',{
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: inputed.textContent,
-                    score: score
+            const uploaded = getCookie("uploaded");
+            if(!uploaded){
+                setCookie("uploaded","1");
+                const score = getCookie("score");
+                setCookie("score","0",1);
+                const res = await fetch('/addRecord',{
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        name: inputed.textContent,
+                        score: score
+                    })
                 })
-            })
-            const data = await res.json();
-            if(data.ok){
-                output.textContent = "Uspesno sacuvan rezultat"
-            }else{
-                //nadamo se da se nikada nece prikazati xD
-                output.textContent = "greska pri cuvanju rezultata";
+                const data = await res.json();
+                if(data.ok){
+                    output.textContent = "Uspesno sacuvan rezultat";
+                }else{
+                    //nadamo se da se nikada nece prikazati xD
+                    output.textContent = "greska pri cuvanju rezultata";
+                }
+                reloadBest();
             }
-            reloadBest();
         }else{
             inputed.textContent += keyboardLayout[selected.y][selected.x];
         }
@@ -104,6 +109,16 @@ const reloadBest = async () =>{
 }
 
 reloadBest();
+
+function setCookie(name,value,days) {
+    let expires = "";
+    if (days) {
+        let date = new Date();
+        date.setTime(date.getTime() + (days*24*60*60*1000));
+        expires = "; expires=" + date.toUTCString();
+    }
+    document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
 
 function getCookie(name) {
     let nameEQ = name + "=";
