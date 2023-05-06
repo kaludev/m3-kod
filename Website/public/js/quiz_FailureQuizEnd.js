@@ -62,7 +62,7 @@ var quizScore = document.querySelector('#quiz-score');
 var quizQuestion = document.getElementById("quiz-question");
 var quizAnswersContainer = document.querySelector('#quiz-answers-container');
 
-var timer = 60;
+var timer = 20;
 quizTimer.textContent = timer;
 timer--;
 
@@ -195,33 +195,38 @@ document.addEventListener("keydown" , (event) =>{
 
         if (correctAnswer) {
             score += 10;
+            quizScore.textContent = score.toString().padStart(4, '0');
+            console.log(quizScore.textContent);
+
+            setCookie("score", score.toString(), 1);
+            console.log(`SCORE: ${score}`);
+
             audio.src = "./sfx/answer-right.mp3";
+            audio.play();
+
+            setTimeout(() => {
+                if (q <= 7) {
+                    q++;
+
+                    quizProgress.textContent = `${q}/7`;
+
+                    loadQuestion(q);
+                    loadAnswers(q);
+                    answerChecksReset();
+                }
+                else {
+                    
+                }
+            }, 1000);
         }
         else {
             audio.src = "./sfx/answer-wrong.mp3";
+            audio.play();
+
+            setTimeout(() => {
+                location.href = "./end.html"
+            }, 1000);
         }
-        audio.play();
-
-        quizScore.textContent = score.toString().padStart(4, '0');
-        console.log(quizScore.textContent);
-
-        setCookie("score", score.toString(), 1);
-        console.log(`SCORE: ${score}`);
-
-        setTimeout(() => {
-            if (q <= 7) {
-                q++;
-
-                quizProgress.textContent = `${q}/7`;
-
-                loadQuestion(q);
-                loadAnswers(q);
-                answerChecksReset();
-            }
-            else {
-                
-            }
-        }, 1000);
     }
 
     answerCheck(answerSelected_Element);
