@@ -1,4 +1,3 @@
-
 let questions = [
     {
         "question":"Ako u ponoć pada kiša, može li se očekivati da će nakon 72 sata vreme biti sunčano ?",
@@ -49,118 +48,192 @@ let questions = [
         "question":"Koliko 2 i po štapa imaju krajeva?",
         "answers": ["6","2","5","nesto"],
         "correct-answer":"6"
-    }
-    ,
+    },
     {
         "question":"Brat i sestra su pre 8 godina imali zajedno 8 godina. Koliko će godina imati zajedno posle 8 godina?",
         "answers": ["imaće ukupno 40 godina","imaće ukupno 24 godina","imaće ukupno 16 godina","nesto"],
         "correct-answer":"imaće ukupno 40 godina"
     }
-]
+];
 
-let quizTimer = document.getElementById("quiz-timer")
-let textForTimer = document.createTextNode("")
-quizTimer.appendChild(textForTimer)
-let currentTimer = 20
-textForTimer.nodeValue = currentTimer
-currentTimer--
-let x = setInterval(function() {
-    textForTimer.nodeValue = currentTimer
-    currentTimer--
+let quizTimer = document.getElementById("quiz-timer");
+
+let currentTimer = 20;
+quizTimer.textContent = currentTimer;
+currentTimer--;
+
+var x = setInterval(function() {
+    quizTimer.textContent = currentTimer;
+    currentTimer--;
     if (currentTimer < 0) {
-      clearInterval(x);
-      location.href = "/end.html"
+        clearInterval(x);
+        //iskljuciti igricu
     }
-  }, 1000);
+}, 1000);
  
-let qu = document.getElementById("quiz-question")
-let a1 = document.getElementById("ans1")
-let a2 = document.getElementById("ans2")
-let a3 = document.getElementById("ans3")
-let a4 = document.getElementById("ans4")
+var q = 0, i = 0, j = 0;
 
-let textForQuestion = document.createTextNode("")
-let textForAnswer1 = document.createTextNode("")
-let textForAnswer2 = document.createTextNode("")
-let textForAnswer3 = document.createTextNode("")
-let textForAnswer4 = document.createTextNode("")
-
-qu.appendChild(textForQuestion)
-a1.appendChild(textForAnswer1)
-a2.appendChild(textForAnswer2)
-a3.appendChild(textForAnswer3)
-a4.appendChild(textForAnswer4)
-
+let answering = true;
+// const shuffledData = data.sort((a, b) => 0.5 - Math.random());
+let currentIndex = -1;
+let time = 30;
+let interval;
+var score = 0;
+var quizScore = document.querySelector('#quiz-score');
+let quizQuestion = document.getElementById("quiz-question");
+var quizAnswersContainer = document.querySelector('#quiz-answers-container')
+const timer = document.querySelector('#quiz-timer');
+var answers = [];
+var answersCorrect = [];
+var answers_Element = [];
+var audio = new Audio();
 
 
-let answs = [textForAnswer1, textForAnswer2, textForAnswer3, textForAnswer4]
 
-function loadQuestion(i){
-    textForQuestion.nodeValue = questions[i].question
-    for (let j=0; j<questions[i].answers.length; j++){
-        answs[j].nodeValue = questions[i].answers[j]
+
+const shuffleArray = (array) => {
+    for (i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+const loadQuestion = (i) => {
+    quizQuestion.textContent = questions[i].question;
+
+    answers = [];
+    for (j = 0; j < questions[i].answers.length; j++) {
+        answers[j] = questions[i].answers[j];
+    }
+    console.log(answers);
+}
+
+const loadAnswers = (a) => {
+    answersCorrect = [];
+    for (i = 0; i < questions[a].correctAnswers.length; i++) {
+        for (j = 0; j < answers.length; j++) {
+            if (answers[j] === questions[a].correctAnswers[i]) answersCorrect.push(j);
+        }
+    }
+    console.log(answersCorrect);
+
+    quizAnswersContainer.innerHTML = "";
+    answers_Element = [];
+    for (i = 0; i < answers.length; i++) {
+            // Create the parent div
+        var quizAnswerDiv = document.createElement(`div`);
+        quizAnswerDiv.setAttribute(`class`, `quiz-answer`);
+        
+            // Create the input element
+        var inputElement = document.createElement(`input`);
+        inputElement.setAttribute(`type`, `radio`);
+        inputElement.setAttribute(`name`, `answers`);
+        inputElement.setAttribute(`id`, `answer-${i}`);
+        
+            // Create the label element
+        var labelElement = document.createElement(`label`);
+        labelElement.setAttribute(`for`, `answer-${i}`);
+        labelElement.setAttribute(`id`, `answer-${i}_label`);
+        labelElement.textContent = answers[i];
+        
+            // Append the input and label elements to the parent div
+        quizAnswerDiv.appendChild(inputElement);
+        quizAnswerDiv.appendChild(labelElement);
+        quizAnswersContainer.appendChild(quizAnswerDiv);
+        answers_Element[i] = quizAnswerDiv;
+    }
+    console.log(answers_Element);
+}
+
+const answerUncheck = (element) => {
+    element.classList.remove("answer-checked");
+    element.classList.add("answer-unchecked");
+}
+
+const answerCheck = (element) => {
+    element.classList.remove("answer-unchecked");
+    element.classList.add("answer-checked");
+}
+
+const answerChecksReset = () => {
+    for (i = 0; i < answers_Element.length; i++) {
+        if (i !== answerSelected_Index) answerUncheck(answers_Element[i]);
+        else answerCheck(answers_Element[i]);
     }
 }
-function last(btn){
-    btn.style.color = "black"
-    //PROMENITE STAJL KAKO TREBA
-}
 
-let buttons = [a1, a2, a3, a4]
-let chosenIndex = 0
-let selectedButton
-function startChanging(){
-    last(buttons[chosenIndex])
-    chosenIndex=0
-    selectedButton = buttons[chosenIndex]
-    changeDesignOfButton(selectedButton)
-
-}
-
-startChanging()
-
-function changeDesignOfButton(selectedButton){
-    selectedButton.style.color = "red"
-    //PROMENITE STAJL KAKO TREBA
-}
 
 document.addEventListener("keydown" , (event) =>{
-    const keyName = event.key
-    if (keyName == "ArrowDown" ){
-        chosenIndex++;
-        chosenIndex =  ((chosenIndex%buttons.length)+buttons.length)%buttons.length
-        last(selectedButton)
-        selectedButton = buttons[chosenIndex]
-        changeDesignOfButton(selectedButton)
+    const key = event.key;
+    answerSelected_Element = answers_Element[answerSelected_Index];
+
+    answerUncheck(answerSelected_Element);
+    let audio = new Audio();
+    var correctAnswer = false;
+
+    if (key == "ArrowUp" && answerSelected_Index > 0) {
+        answerSelected_Element = answers_Element[--answerSelected_Index];
+        audio.src = "./sfx/blip.mp3";
+        audio.play();
     }
-    
-} )
-
-document.addEventListener("keydown" , (event) =>{
-    const keyName = event.key
-    if (keyName == "ArrowUp"){
-        chosenIndex--;
-        chosenIndex =  ((chosenIndex%buttons.length)+buttons.length)%buttons.length
-        last(selectedButton)
-        selectedButton = buttons[chosenIndex]
-        changeDesignOfButton(selectedButton)
+    else if (key == "ArrowDown" && answerSelected_Index < (answers_Element.length - 1)) {
+        answerSelected_Element = answers_Element[++answerSelected_Index];
+        audio.src = "./sfx/blip.mp3";
+        audio.play();
     }
-    
-} )
+    else if (key == "Enter") {
+        for (i = 0; i < answersCorrect.length; i++) {
+            console.log(`SELECTED INDEX: ${answerSelected_Index} | ANSWER INDEX: ${answersCorrect[i]}`);
+            if (answerSelected_Index === answersCorrect[i]) correctAnswer = true;
+        }
 
-loadQuestion(0)
+        if (correctAnswer) {
+            score += 10;
+            quizScore.textContent = score;
 
-let i = 0
-let score = 0;
-setCookie("score",score.toString(),1);
-setCookie("uploaded","");
-let buttonNext = document.getElementById('quiz-buttonNext');
+            audio.src = "./sfx/answer-right.mp3";
+            audio.play();
+        }
+        else {
+            audio.src = "./sfx/answer-wrong.mp3";
+            audio.play();
+        }
+
+        setTimeout(() => {
+            q++;
+            loadQuestion(q);
+            loadAnswers(q);
+            answerChecksReset();
+        }, 1000);
+    }
+
+    answerCheck(answerSelected_Element);
+});
+
+
+shuffleArray(questions);
+loadQuestion(i);
+loadAnswers(i);
+
+var answerSelected_Index = 0;
+var answerSelected_Element;
+answerChecksReset();
+
+
+
+
+    // COOKIES
+
+setCookie("score", score.toString(),1);
+setCookie("uploaded", "");
+
 document.addEventListener("keydown", (event) =>{
     const keyName = event.key
     if (keyName == "f"){
         if(questions[i]["correct-answer"] === answs[chosenIndex].nodeValue){
             score++;
-            setCookie("score",score.toString(),1);
+            setCookie("score", score.toString(),1);
         }
         i++
         startChanging()
@@ -170,8 +243,6 @@ document.addEventListener("keydown", (event) =>{
             location.href = "/end.html"
         }
     }
-    
-    
 })
 
 function setCookie(name,value,days) {
@@ -183,6 +254,7 @@ function setCookie(name,value,days) {
     }
     document.cookie = name + "=" + (value || "")  + expires + "; path=/";
 }
+
 function getCookie(name) {
     let nameEQ = name + "=";
     let ca = document.cookie.split(';');
@@ -193,6 +265,7 @@ function getCookie(name) {
     }
     return null;
 }
+
 function eraseCookie(name) {   
     document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 }
