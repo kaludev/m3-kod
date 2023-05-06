@@ -1,3 +1,15 @@
+@font-face {
+  font-family: "Clip";
+  src: url("../fonts/clip.ttf");
+}
+@font-face {
+  font-family: "Joystix";
+  src: url("../fonts/joystix_monospace.otf");
+}
+@font-face {
+  font-family: "VCR OSD";
+  src: url("../fonts/vcr_osd_mono.ttf");
+}
 /* ELEMENTS */
 * {
   margin: 0;
@@ -5,13 +17,23 @@
   box-sizing: border-box;
 }
 
+body {
+  background-color: hsl(0, 0%, 0%);
+}
+
 a, button, h1, h2, h3, h4, h5, h6, input, p {
-  font-family: "Montserrat", sans-serif;
-  color: hsl(0, 0%, 5%);
+  font-family: "VCR OSD", sans-serif;
+  color: hsl(205, 70%, 65%);
+}
+
+a {
+  text-decoration: none;
 }
 
 h1 {
-  font-size: 5rem;
+  font-family: "Clip", sans-serif;
+  font-size: 7.5rem;
+  text-shadow: 0 0 1rem hsl(215, 50%, 50%);
 }
 
 h2 {
@@ -72,7 +94,6 @@ h4 {
   flex-direction: row;
   flex-wrap: wrap;
   height: 90vh;
-  background-color: hsl(0, 0%, 95%);
 }
 
 #content_container {

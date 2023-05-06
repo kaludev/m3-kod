@@ -24,26 +24,55 @@
             <div id="quiz-container">
                 <div id="quiz-body-container">
                     <header id="quiz-header-container">
-                        <div id="quiz-timer-container">
-                            <p id="quiz-timer">30</p>
+                        <div id="quiz-info-container">
+                            <div id="quiz-scores-container">
+                                <div id="quiz-score-container">
+                                    <p id="quiz-score-title">SCORE</p>
+                                    <p id="quiz-score">0</p>
+                                </div>
+                                <div id="quiz-high-score-container">
+                                    <p id="quiz-high-score-title">HIGH SCORE</p>
+                                    <p id="quiz-high-score">0</p>
+                                </div>
+                            </div>
+
+                            <div id="quiz-timer-container">
+                                <p id="quiz-timer-title">TIMER</p>
+                                <p id="quiz-timer"></p>
+                            </div>
                         </div>
                         <div id="quiz-question-container">
-                            <h2 id="quiz-question">PITANJE</h2>
+                            <h2 id="quiz-question"></h2>
                         </div>
                     </header>
                     <content id="quiz-body-container">
                         <div id="quiz-answers-container">
-                            
+                            <!--<div class="quiz-answer">
+                                <input type="radio" name="answers" id="answer-1"></input>
+                                <label for="answer-1" id="answer-1_label"></label>
+                            </div>
+                            <div class="quiz-answer">
+                                <input type="radio" name="answers" id="answer-2"></input>
+                                <label for="answer-2" id="answer-2_label"></label>
+                            </div>
+                            <div class="quiz-answer">
+                                <input type="radio" name="answers" id="answer-3"></input>
+                                <label for="answer-3" id="answer-3_label"></label>
+                            </div>
+                            <div class="quiz-answer">
+                                <input type="radio" name="answers" id="answer-4"></input>
+                                <label for="answer-4" id="answer-4_label"></label>
+                            </div>-->
                         </div>
                     </content>
-                    <footer id="quiz-footer-container">
+                    <!-- <footer id="quiz-footer-container">
                         <div id="quiz-buttonNext-container">
                             <button id="quiz-buttonNext" type="button">Sledeće</button>
                         </div>
-                    </footer>
+                    </footer> -->
                 </div>
             </div>
         </div>
     </body>
-    <script type="module" src="./js/quiz.js"></script>
+    <script src="./js/quiz.js"></script>
 </html>

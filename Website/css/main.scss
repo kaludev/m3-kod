@@ -2,7 +2,24 @@ $pure-black: hsla(0, 0%, 0%, 1);
 $black: hsla(0, 0%, 5%, 1);
 $white: hsla(0, 0%, 95%, 1);
 $pure-white: hsla(0, 0%, 100%, 1);
+$background-color: hsla(0, 0%, 0%, 1);
+$text-color: hsla(205, 70%, 65%, 1);
 
+
+@font-face {
+    font-family: 'Clip';
+    src: url("../fonts/clip.ttf");
+}
+
+@font-face {
+    font-family: 'Joystix';
+    src: url("../fonts/joystix_monospace.otf");
+}
+
+@font-face {
+    font-family: 'VCR OSD';
+    src: url("../fonts/vcr_osd_mono.ttf");
+}
 
 
             /* ELEMENTS */
@@ -13,13 +30,23 @@ $pure-white: hsla(0, 0%, 100%, 1);
     box-sizing: border-box;
 }
 
+body {
+    background-color: $background-color;
+}
+
 a, button, h1, h2, h3, h4, h5, h6, input, p {
-    font-family: 'Montserrat', sans-serif;
-    color: $black;
+    font-family: 'VCR OSD', sans-serif;
+    color: $text-color;
+}
+
+a {
+    text-decoration: none;
 }
 
 h1 {
-    font-size: 5rem;
+    font-family: 'Clip', sans-serif;
+    font-size: 7.5rem;
+    text-shadow: 0 0 1rem hsla(215, 50%, 50%, 1);
 }
 
 h2 {
@@ -87,7 +114,7 @@ h4 {
     flex-direction: row;
     flex-wrap: wrap;
     height: 90vh;
-    background-color: $white;
+    // background-color: $white;
 }
 
 #content_container {
