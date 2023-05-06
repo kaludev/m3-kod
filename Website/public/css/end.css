@@ -1,0 +1,19 @@
+
+
+.keyboard{
+    display: flex;
+    flex-direction: column;
+    width: 320px;
+}
+.keyboardRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.keyboardKey{
+    padding: 15px 3%;
+}
+
+.selected{
+    color: red;
+}
