@@ -5,7 +5,7 @@ const questions = [
         "answerCorrect": "Ne može"
     },
     {
-        "question": "Miš je udaljen od od svog skloništa 20 koraka. Mačka je udaljena od miša 5 skokova. Dok mačka jedanput skoči, miš načini 3 koraka, ali je jedan skok mačke velik kao 10 miševih koraka. Da li će mačka uhvatiti miša?",
+        "question": "Miš je udaljen od svog skloništa 20 koraka. Mačka je udaljena od miša 5 skokova. Dok mačka jedanput skoči, miš načini 3 koraka, ali je jedan skok mačke velik kao 10 miševih koraka. Da li će mačka uhvatiti miša?",
         "answers": ["Miš će umaći mački za jedan korak", "Miš će umaći mački za dva koraka", "Mačka će uhvatiti miša",],
         "answerCorrect": "Miš će umaći mački za jedan korak"
     },
@@ -40,7 +40,7 @@ const questions = [
         "answerCorrect": "Nije moguće"
     },
     {
-        "question": "Sinu je 9 godina , a ocu je 35. Kada će otac biti tri puta stariji od sina?",
+        "question": "Sinu je 9 godina, a ocu je 35. Kada će otac biti tri puta stariji od sina?",
         "answers": ["Kada sin bude imao 10 godina", "Kada sin bude imao 13 godina", "Kada sin bude imao 15 godina"],
         "answerCorrect": "Kada sin bude imao 13 godina"
     },
@@ -61,32 +61,57 @@ var quizProgress = document.querySelector("#quiz-progress");
 var quizScore = document.querySelector('#quiz-score');
 var quizQuestion = document.getElementById("quiz-question");
 var quizAnswersContainer = document.querySelector('#quiz-answers-container');
-
-var timer = 60;
-quizTimer.textContent = timer;
-timer--;
-
-var x = setInterval(function() {
-    quizTimer.textContent = timer;
-    timer--;
-    if (timer < 0) {
-        clearInterval(x);
-        //iskljuciti igricu
-    }
-}, 1000);
  
 var q = 0, i = 0, j = 0;
+var number_questions = 7;
 
-quizProgress.textContent = `${q}/7`;
+quizProgress.textContent = `${q + 1}/${number_questions}`;
 var score = 0;
 var answers = [];
 var answerCorrect;
+var counter_answerCorrect = 0;
 // var answersCorrect = [];
 var answers_Element = [];
+
+var timerLimit = 60;
+var timer = timerLimit;
+quizTimer.textContent = timer;
+timer--;
+
 var audio = new Audio();
 
+var quizBackgroundMusic = new Audio("./sfx/quiz-background-music.mp3");
+quizBackgroundMusic.loop = true;
+
+var quizTimerTicking = new Audio("./sfx/quiz-background-music.mp3");
+var timerInterval = setInterval(() => {
+    quizTimer.textContent = timer;
+    timer--;
+    quizTimerTicking.play();
+
+    if (timer < 0) {
+        quizBackgroundMusic.pause();
+        audio.src = "./sfx/answer-wrong.mp3";
+        audio.play();
+        endQuiz();
+    }
+}, 1000);
+
+var answerSelection = true;
 
 
+
+
+const endQuiz = () => {
+    clearInterval(timerInterval);
+
+    console.log(`(${counter_answerCorrect} / ${number_questions}) * (${timerLimit} / (${timerLimit - timer}))`)
+    score = Math.round((counter_answerCorrect / number_questions) * (timerLimit / (timerLimit - timer)) * Math.pow(10, 5));
+
+    alert(`Osvojeni broj bodova: ${score}`);
+
+    // location.href = "/end.html";
+}
 
 const shuffleArray = (array) => {
     for (i = array.length - 1; i > 0; i--) {
@@ -140,17 +165,28 @@ const loadAnswers = (a) => {
     console.log(answers_Element);
 }
 
-const answerUncheck = (element) => {
-    element.classList.remove("answer-checked");
-    element.classList.add("answer-unchecked");
-}
-
 const answerCheck = (element) => {
     element.classList.remove("answer-unchecked");
     element.classList.add("answer-checked");
 }
 
+const answerCheckCorrect = (element) => {
+    element.classList.remove("answer-checked");
+    element.classList.add("answer-checked-correct");
+}
+
+const answerCheckWrong = (element) => {
+    element.classList.remove("answer-checked");
+    element.classList.add("answer-checked-wrong");
+}
+
+const answerUncheck = (element) => {
+    element.classList.remove("answer-checked");
+    element.classList.add("answer-unchecked");
+}
+
 const answerChecksReset = () => {
+    answerSelected_Index = 0;
     for (i = 0; i < answers_Element.length; i++) {
         if (i !== answerSelected_Index) answerUncheck(answers_Element[i]);
         else answerCheck(answers_Element[i]);
@@ -166,62 +202,75 @@ document.addEventListener("keydown" , (event) =>{
     let audio = new Audio();
     var correctAnswer = false;
 
-    if (key == "ArrowUp") {
-        if (answerSelected_Index > 0) answerSelected_Element = answers_Element[--answerSelected_Index];
-        else {
-            answerSelected_Index = answers_Element.length - 1;
-            answerSelected_Element = answers_Element[answerSelected_Index];
+    if (answerSelection === true) {
+        if (key == "ArrowUp") {
+            if (answerSelected_Index > 0) answerSelected_Element = answers_Element[--answerSelected_Index];
+            else {
+                answerSelected_Index = answers_Element.length - 1;
+                answerSelected_Element = answers_Element[answerSelected_Index];
+            }
+            audio.src = "./sfx/blip.mp3";
+            audio.play();
         }
-        audio.src = "./sfx/blip.mp3";
-        audio.play();
-    }
-    else if (key == "ArrowDown") {
-        if (answerSelected_Index < (answers_Element.length - 1)) answerSelected_Element = answers_Element[++answerSelected_Index];
-        else {
-            answerSelected_Index = 0;
-            answerSelected_Element = answers_Element[answerSelected_Index];
+        else if (key == "ArrowDown") {
+            if (answerSelected_Index < (answers_Element.length - 1)) answerSelected_Element = answers_Element[++answerSelected_Index];
+            else {
+                answerSelected_Index = 0;
+                answerSelected_Element = answers_Element[answerSelected_Index];
+            }
+            audio.src = "./sfx/blip.mp3";
+            audio.play();
         }
-        audio.src = "./sfx/blip.mp3";
-        audio.play();
-    }
-    else if (key == "f") {
-        /*for (i = 0; i < answersCorrect.length; i++) {
-            console.log(`SELECTED INDEX: ${answerSelected_Index} | ANSWER INDEX: ${answersCorrect[i]}`);
-            if (answerSelected_Index === answersCorrect[i]) correctAnswer = true;
-        }*/
+        else if (key == "f") {
+            answerSelection = false;
+            /*for (i = 0; i < answersCorrect.length; i++) {
+                console.log(`SELECTED INDEX: ${answerSelected_Index} | ANSWER INDEX: ${answersCorrect[i]}`);
+                if (answerSelected_Index === answersCorrect[i]) correctAnswer = true;
+            }*/
 
-        console.log(`SELECTED INDEX: ${answerSelected_Index} | ANSWER INDEX: ${answerCorrect}`);
-        if (answerSelected_Index === answerCorrect) correctAnswer = true;
+            console.log(`SELECTED INDEX: ${answerSelected_Index} | ANSWER INDEX: ${answerCorrect}`);
+            if (answerSelected_Index === answerCorrect) correctAnswer = true;
 
-        if (correctAnswer) {
-            score += 10;
-            audio.src = "./sfx/answer-right.mp3";
-        }
-        else {
-            audio.src = "./sfx/answer-wrong.mp3";
-        }
-        audio.play();
-
-        quizScore.textContent = score.toString().padStart(4, '0');
-        console.log(quizScore.textContent);
-
-        setCookie("score", score.toString(), 1);
-        console.log(`SCORE: ${score}`);
-
-        setTimeout(() => {
-            if (q <= 7) {
-                q++;
-
-                quizProgress.textContent = `${q}/7`;
-
-                loadQuestion(q);
-                loadAnswers(q);
-                answerChecksReset();
+            answerSelected_Element.children[1].style.color = "hsla(0, 0%, 100%, 1)";
+            if (correctAnswer) {
+                answerCheckCorrect(answerSelected_Element);
+                counter_answerCorrect++;
+                score += 10;
+                audio.src = "./sfx/answer-right.mp3";
             }
             else {
-                
+                answerCheckWrong(answerSelected_Element);
+                audio.src = "./sfx/answer-wrong.mp3";
             }
-        }, 1000);
+            audio.play();
+
+            quizScore.textContent = score.toString().padStart(4, '0');
+            console.log(quizScore.textContent);
+
+            setCookie("score", score.toString(), 1);
+            console.log(`SCORE: ${score}`);
+
+            setTimeout(() => {
+                answerSelected_Element.children[1].style.color = "hsla(180, 100%, 50%, 1)";
+                
+                if (q < (number_questions - 1)) {
+                    q++;
+
+                    quizProgress.textContent = `${q + 1}/${number_questions}`;
+
+                    loadQuestion(q);
+                    loadAnswers(q);
+                    answerChecksReset();
+                    answerSelection = true;
+                }
+                else {
+                    quizBackgroundMusic.pause();
+                    audio.src = "./sfx/quiz-complete.mp3";
+                    audio.play();
+                    endQuiz();
+                }
+            }, 1000);
+        }
     }
 
     answerCheck(answerSelected_Element);
@@ -231,6 +280,7 @@ document.addEventListener("keydown" , (event) =>{
 shuffleArray(questions);
 loadQuestion(i);
 loadAnswers(i);
+quizBackgroundMusic.play();
 
 var answerSelected_Index = 0;
 var answerSelected_Element;

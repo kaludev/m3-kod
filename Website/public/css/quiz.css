@@ -98,6 +98,18 @@ input[type=radio] {
   background-size: 500px 100px;
 }
 
+.answer-checked-correct {
+  background-image: url("../images/answer-checked-correct-container.png");
+  background-repeat: no-repeat;
+  background-size: 500px 100px;
+}
+
+.answer-checked-wrong {
+  background-image: url("../images/answer-checked-wrong-container.png");
+  background-repeat: no-repeat;
+  background-size: 500px 100px;
+}
+
 /*#quiz-buttonNext-container {
     height: 10vh;
     border: 2px solid black;
