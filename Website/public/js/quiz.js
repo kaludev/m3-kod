@@ -56,17 +56,18 @@ const questions = [
     }
 ];
 
+var quiyHighestScore = document.querySelector("#quiz-highest-score"); 
 var quizTimer = document.querySelector("#quiz-timer");
-var quizProgress = document.querySelector("#quiz-progress");
-var quizScore = document.querySelector('#quiz-score');
-var quizQuestion = document.getElementById("quiz-question");
-var quizAnswersContainer = document.querySelector('#quiz-answers-container');
+var quizHighScore = document.querySelector("#quiz-high-score");
+var quizScore = document.querySelector("#quiz-score");
+var quizQuestion = document.querySelector("#quiz-question");
+var quizAnswersContainer = document.querySelector("#quiz-answers-container");
  
 var q = 0, i = 0, j = 0;
 var number_questions = 7;
 
-quizProgress.textContent = `${q + 1}/${number_questions}`;
 var score = 0;
+var highScore = 0;
 var answers = [];
 var answerCorrect;
 var counter_answerCorrect = 0;
@@ -106,7 +107,7 @@ const endQuiz = () => {
     clearInterval(timerInterval);
 
     console.log(`(${counter_answerCorrect} / ${number_questions}) * (${timerLimit} / (${timerLimit - timer}))`)
-    score = Math.round((counter_answerCorrect / number_questions) * (timerLimit / (timerLimit - timer)) * Math.pow(10, 5));
+    score = Math.round((counter_answerCorrect / number_questions) * (timerLimit / (timerLimit - timer)) * Math.pow(10, 2));
 
     alert(`Osvojeni broj bodova: ${score}`);
 
@@ -244,23 +245,21 @@ document.addEventListener("keydown" , (event) =>{
             }
             audio.play();
 
-            quizScore.textContent = score.toString().padStart(4, '0');
-            console.log(quizScore.textContent);
+            quizScore.textContent = score.toString().padStart(3, '0');
 
             setCookie("score", score.toString(), 1);
-            console.log(`SCORE: ${score}`);
+
+            if (score > highScore) highScore = score;
+            quizHighScore.textContent = highScore.toString().padStart(3, '0');
 
             setTimeout(() => {
-                answerSelected_Element.children[1].style.color = "hsla(180, 100%, 50%, 1)";
-                
                 if (q < (number_questions - 1)) {
                     q++;
-
-                    quizProgress.textContent = `${q + 1}/${number_questions}`;
 
                     loadQuestion(q);
                     loadAnswers(q);
                     answerChecksReset();
+                    answerSelected_Element.children[1].style.color = "hsla(180, 100%, 50%, 1)";
                     answerSelection = true;
                 }
                 else {

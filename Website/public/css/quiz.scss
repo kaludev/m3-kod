@@ -1,10 +1,15 @@
-$label-color: hsla(180, 100%, 50%, 1);
+$cyan-pastel: hsla(205, 70%, 65%, 1);
+$cyan: hsla(180, 100%, 50%, 1);
+$purple-pastel: hsla(260, 85%, 65%, 1);
+$purple: hsla(265, 75%, 45%, 1);
+$pink-pastel: hsla(300, 100%, 85%, 1);
+$pink: hsla(285, 90%, 70%, 1);
 
 
 #page_quiz-body-container {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     height: 100vh;
 }
@@ -12,7 +17,7 @@ $label-color: hsla(180, 100%, 50%, 1);
 #quiz-section-divider {
     height: 5px;
     width: 100%;
-    background-color: $label-color;
+    background-color: $cyan;
 }
 
 #quiz-container, #quiz-body-container, #quiz-header-container, #quiz-info-container, 
@@ -40,9 +45,9 @@ $label-color: hsla(180, 100%, 50%, 1);
 
 
 #quiz-info-container {
-    justify-content: center;
-    height: 25vh;
-    gap: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 20vh;
 }
 
 #quiz-scores-container, #quiz-progression-container {
@@ -50,16 +55,20 @@ $label-color: hsla(180, 100%, 50%, 1);
     justify-content: space-evenly;
 }
 
-#quiz-score-title, #quiz-high-score-title, #quiz-timer-title, #quiz-progress-title {
-    padding-bottom: 1rem;
-    font-size: 3.75rem;
-    color: $label-color;
+#quiz-score-title, #quiz-high-score-title, #quiz-timer-title/*, #quiz-progress-title*/ {
+    font-size: 1.5rem;
 }
 
-#quiz-score, #quiz-high-score, #quiz-timer, #quiz-progress {
-    font-size: 2.5rem;
-    color: $label-color;
+#quiz-score, #quiz-high-score, #quiz-timer/*, #quiz-progress*/ {
+    font-size: 4.5rem;
 }
+
+#quiz-timer-title { color: $cyan-pastel; }
+#quiz-timer { color: $cyan; }
+#quiz-high-score-title { color: $purple-pastel; }
+#quiz-high-score { color: $purple; }
+#quiz-score-title { color: $pink-pastel; }
+#quiz-score { color: $pink; }
 
 
 #quiz-question-container {
@@ -79,12 +88,12 @@ $label-color: hsla(180, 100%, 50%, 1);
 
 .quiz-answer {
     flex-direction: row;
-    width: 500px;
+    width: 720px;
     height: 100px;
     font-weight: bold;
     font-size: 1.25rem;
-    color: $label-color;
-    font-family: 'VCR OSD', sans-serif;
+    color: $cyan;
+    font-family: 'Joystix', sans-serif;
 }
 
 input[type="radio"] {
@@ -94,25 +103,25 @@ input[type="radio"] {
 .answer-unchecked {
     background-image: url("../images/answer-unchecked-container.png");
     background-repeat: no-repeat;
-    background-size: 500px 100px;
+    background-size: 720px 100px;
 }
 
 .answer-checked {
     background-image: url("../images/answer-checked-container.png");
     background-repeat: no-repeat;
-    background-size: 500px 100px;
+    background-size: 720px 100px;
 }
 
 .answer-checked-correct {
     background-image: url("../images/answer-checked-correct-container.png");
     background-repeat: no-repeat;
-    background-size: 500px 100px;
+    background-size: 720px 100px;
 }
 
 .answer-checked-wrong {
     background-image: url("../images/answer-checked-wrong-container.png");
     background-repeat: no-repeat;
-    background-size: 500px 100px;
+    background-size: 720px 100px;
 }
 
 /*#quiz-buttonNext-container {

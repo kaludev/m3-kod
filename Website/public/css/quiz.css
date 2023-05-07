@@ -1,7 +1,7 @@
 #page_quiz-body-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   height: 100vh;
 }
@@ -37,9 +37,9 @@
 }
 
 #quiz-info-container {
-  justify-content: center;
-  height: 25vh;
-  gap: 1rem;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 20vh;
 }
 
 #quiz-scores-container, #quiz-progression-container {
@@ -47,15 +47,36 @@
   justify-content: space-evenly;
 }
 
-#quiz-score-title, #quiz-high-score-title, #quiz-timer-title, #quiz-progress-title {
-  padding-bottom: 1rem;
-  font-size: 3.75rem;
+#quiz-score-title, #quiz-high-score-title, #quiz-timer-title {
+  font-size: 1.5rem;
+}
+
+#quiz-score, #quiz-high-score, #quiz-timer {
+  font-size: 4.5rem;
+}
+
+#quiz-timer-title {
+  color: hsl(205, 70%, 65%);
+}
+
+#quiz-timer {
   color: hsl(180, 100%, 50%);
 }
 
-#quiz-score, #quiz-high-score, #quiz-timer, #quiz-progress {
-  font-size: 2.5rem;
-  color: hsl(180, 100%, 50%);
+#quiz-high-score-title {
+  color: hsl(260, 85%, 65%);
+}
+
+#quiz-high-score {
+  color: hsl(265, 75%, 45%);
+}
+
+#quiz-score-title {
+  color: hsl(300, 100%, 85%);
+}
+
+#quiz-score {
+  color: hsl(285, 90%, 70%);
 }
 
 #quiz-question-container {
@@ -74,12 +95,12 @@
 
 .quiz-answer {
   flex-direction: row;
-  width: 500px;
+  width: 720px;
   height: 100px;
   font-weight: bold;
   font-size: 1.25rem;
   color: hsl(180, 100%, 50%);
-  font-family: "VCR OSD", sans-serif;
+  font-family: "Joystix", sans-serif;
 }
 
 input[type=radio] {
@@ -89,25 +110,25 @@ input[type=radio] {
 .answer-unchecked {
   background-image: url("../images/answer-unchecked-container.png");
   background-repeat: no-repeat;
-  background-size: 500px 100px;
+  background-size: 720px 100px;
 }
 
 .answer-checked {
   background-image: url("../images/answer-checked-container.png");
   background-repeat: no-repeat;
-  background-size: 500px 100px;
+  background-size: 720px 100px;
 }
 
 .answer-checked-correct {
   background-image: url("../images/answer-checked-correct-container.png");
   background-repeat: no-repeat;
-  background-size: 500px 100px;
+  background-size: 720px 100px;
 }
 
 .answer-checked-wrong {
   background-image: url("../images/answer-checked-wrong-container.png");
   background-repeat: no-repeat;
-  background-size: 500px 100px;
+  background-size: 720px 100px;
 }
 
 /*#quiz-buttonNext-container {
