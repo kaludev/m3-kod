@@ -22,18 +22,21 @@ namespace SuperDictionary
         private static void countWordsInString(ref string[] words, ref Dictionary<string, int> singleDictionary)
         {
             char[] specialCharacters = { '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',',
-                '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_', '`', '{',
-                '|', '}', '~', 'º', '¿', '¬', '¡', '«', '»', '¯', '´', '≡', '±', '‗', '÷', '¸', '°',
-                '¨', '·', '‚', '„', '…', 'ˆ', '‰', '‹', '‘', '’', '“', '”', '•', '–', '—', '˜', '™',
-                '›', '•', ' ', '\n', '\t' };
+                '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_',
+                'º', '¿', '¬', '¡', '«', '»', '¯', '≡', '±', '‗', '÷', '°',
+                '¨', '·', '„', '…', '‰', '“', '”', '•',  '—',  '™',
+                '•', ' ', '\n', '\t', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ,'�','','','w','q','y','x'};
 
             // REPLACING SPECIAL CHARACTERS WITH BLANK CHARACTERS
-            for (int w = 0; w < words.Length; w++)
-            {
-                foreach (char c in specialCharacters)
-                {
+            for (int w = 0; w < words.Length; w++) {
+                foreach (char c in specialCharacters) {
                     words[w] = words[w].Replace(c.ToString(), "");
                 }
+                words[w] = words[w].Replace('~','č');
+                words[w] = words[w].Replace('|', 'đ');
+                words[w] = words[w].Replace('}', 'ć');
+                words[w] = words[w].Replace('{', 'š');
+                words[w] = words[w].Replace('`', 'ž');   
             }
 
             // FORMING A NEW ARRAY BY REMOVING EMPTY ELEMENTS
@@ -305,7 +308,7 @@ namespace SuperDictionary
                                 orderedDictionary_Enumerable.ToDictionary(x => x.Key, x => x.Value);
                             Array.Resize(ref superDictionary_Array, superDictionary_Array.Length + 1);
                             superDictionary_Array[superDictionary_Array.Length - 1] = orderedDictionary;
-                            writeDictionaryIntoJSONFile(fileName, orderedDictionary);
+                            //writeDictionaryIntoJSONFile(fileName, orderedDictionary);
 
 
                             counter_written++;
