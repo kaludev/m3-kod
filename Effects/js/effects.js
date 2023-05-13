@@ -76,32 +76,16 @@ const applyEffects = () => {
     const randomIndices = generateRandomIndices(f);
 
     for (let i = 1; i <= f; i++) {
-        const r = Math.floor(Math.random() * 3);
-        console.log(`applyEffects(): r = ${r}`);
-
-        // SHUFFLE WORDS
-        if (r === 1) {
-            const temporaryValue = words.slice();
-            shuffleWords(words);
+        const temporaryIndex = randomIndices[i - 1];
+        const temporaryValue = words[temporaryIndex];
+        const letters = words[temporaryIndex].split('');
+        shuffleLetters(letters);
+        words[temporaryIndex] = letters.join('');
+        text.innerHTML = words.join(" ");
+        setTimeout(() => {
+            words[temporaryIndex] = temporaryValue;
             text.innerHTML = words.join(" ");
-            setTimeout(() => {
-                words = temporaryValue.slice();
-                text.innerHTML = words.join(" ");
-            }, T)
-        }
-        // SHUFFLE LETTERS
-        else if (r === 2) {
-            const temporaryIndex = randomIndices[i - 1];
-            const temporaryValue = words[temporaryIndex];
-            const letters = words[temporaryIndex].split('');
-            shuffleLetters(letters);
-            words[temporaryIndex] = letters.join('');
-            text.innerHTML = words.join(" ");
-            setTimeout(() => {
-                words[temporaryIndex] = temporaryValue;
-                text.innerHTML = words.join(" ");
-            }, T);
-        }
+        }, T);
     }
 
     console.log("―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――");

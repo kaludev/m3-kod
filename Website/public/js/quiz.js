@@ -55,7 +55,8 @@ const questions = [
         "answerCorrect": "Imaće ukupno 40 godina"
     }
 ];
-
+import data from "./superdictionary1.json" assert {type: 'json'};
+console.log(data);
 var quiyHighestScore = document.querySelector("#quiz-highest-score"); 
 var quizTimer = document.querySelector("#quiz-timer");
 var quizHighScore = document.querySelector("#quiz-high-score");
@@ -99,9 +100,9 @@ var timerInterval = setInterval(() => {
 }, 1000);
 
 var answerSelection = true;
-
-
-
+const text = document.querySelector("#quiz-question");
+let textContent = text.innerHTML; //console.log(textContent);
+let words;
 
 const endQuiz = () => {
     clearInterval(timerInterval);
@@ -109,9 +110,7 @@ const endQuiz = () => {
     console.log(`(${counter_answerCorrect} / ${number_questions}) * (${timerLimit} / (${timerLimit - timer}))`)
     score = Math.round((counter_answerCorrect / number_questions) * (timerLimit / (timerLimit - timer)) * Math.pow(10, 2));
 
-    alert(`Osvojeni broj bodova: ${score}`);
-
-    // location.href = "/end.html";
+    location.href = "/end.html";
 }
 
 const shuffleArray = (array) => {
@@ -123,6 +122,8 @@ const shuffleArray = (array) => {
 }
 
 const loadQuestion = (i) => {
+    textContent = questions[i].question;
+    words = textContent.split(' ');
     quizQuestion.textContent = questions[i].question;
 }
 
@@ -131,13 +132,10 @@ const loadAnswers = (a) => {
     for (i = 0; i < questions[a].answers.length; i++) {
         answers[i] = questions[a].answers[i];
     }
-    console.log(answers);
 
     for (i = 0; i < questions[a].answers.length; i++) {
         if (answers[i] == questions[a].answerCorrect) answerCorrect = i;
     }
-    console.log(answerCorrect);
-
     quizAnswersContainer.innerHTML = "";
     answers_Element = [];
     for (i = 0; i < answers.length; i++) {
@@ -285,6 +283,58 @@ var answerSelected_Index = 0;
 var answerSelected_Element;
 answerChecksReset();
 
+ 
+
+var ind = 0;
+var f = 5;
+var T = 1000;
+// SHUFFLE LETTERS
+const shuffleLetters = (letters) => {
+    let currentIndex = letters.length-1;
+    let randomIndex;
+    let temporaryIndex;
+
+    while (currentIndex !== 1) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        console.log(`shuffleLetters(): randomIndex = ${randomIndex} | currentIndex = ${currentIndex}`);
+        currentIndex -= 1;
+
+        temporaryIndex = letters[currentIndex];
+        letters[currentIndex] = letters[randomIndex];
+        letters[randomIndex] = temporaryIndex;
+    }
+    let word = letters.join('');
+    return word ;
+}
+
+
+const applyEffects = () => {
+    const editedWords = words.slice();
+    const n = words.length;
+
+    for (let i = 1; i < n-1; i++) {
+        try{
+            if(data[words[i]] < 150){
+                const letters = words[i].split('');
+                editedWords[i] = shuffleLetters(letters);
+            }
+        }catch(e){
+            const letters = words[i].split('');
+            editedWords[i] = shuffleLetters(letters);
+        }
+        
+    }
+    text.innerHTML = editedWords.join(" ");
+}
+
+
+    // FILTERING WORDS
+// words = words.filter(c => c.trim() !== '');
+// words = words.map(c => c.replace(/[,.\n]/g, ''));
+
+
+    // APPLYING EFFECTS
+setInterval(applyEffects, T);
 
 
 
@@ -292,6 +342,8 @@ answerChecksReset();
 
 setCookie("score", score.toString(),1);
 setCookie("uploaded", "");
+
+
 
 /*document.addEventListener("keydown", (event) =>{
     const keyName = event.key

@@ -1,7 +1,9 @@
 const keyboard = document.querySelector('#keyboard');
 const inputed = document.querySelector('#input-input');
 const output = document.querySelector('.output');
-const leaderboard = document.querySelector('.leaderboard');
+const leaderboardNames = document.querySelector('#leaderboard-names-container');
+const leaderboardScores = document.querySelector('#leaderboard-scores-container');
+const leaderboardHeaders = document.querySelectorAll('.leaderboard-head');
 const keyboardLayout = [
     ['Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Š', 'Đ'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Č', 'Ć'],
@@ -61,50 +63,69 @@ document.addEventListener("keydown" , async(event) =>{
         selected.x =  ((selected.x%keyboardLayout[selected.y].length)+keyboardLayout[selected.y].length)%keyboardLayout[selected.y].length; 
         reloadSelected();
     }else if(keyName == "f"){
-        if(keyboardLayout[selected.y][selected.x] === 'Backspace'){
-            if(inputed.textContent.length > 0){
-                inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
-            }
-        }else if(keyboardLayout[selected.y][selected.x] === 'Enter'){
-            const uploaded = getCookie("uploaded");
-            if(!uploaded){
-                setCookie("uploaded","1");
-                const score = getCookie("score");
-                setCookie("score","0",1);
-                const res = await fetch('/addRecord',{
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        name: inputed.textContent,
-                        score: score
-                    })
-                })
-                const data = await res.json();
-                if(data.ok){
-                    output.textContent = "Uspesno sacuvan rezultat";
-                }else{
-                    //nadamo se da se nikada nece prikazati xD
-                    output.textContent = "greska pri cuvanju rezultata";
+        const uploaded = getCookie("uploaded");
+        if(!uploaded){
+            if(keyboardLayout[selected.y][selected.x] === 'Backspace'){
+                if(inputed.textContent.length > 0){
+                    inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
                 }
-                reloadBest();
+            }else if(keyboardLayout[selected.y][selected.x] === 'Enter'){
+                const uploaded = getCookie("uploaded");
+                if(!uploaded){
+                    setCookie("uploaded","1");
+                    const score = getCookie("score");
+                    setCookie("score","0",1);
+                    const res = await fetch('/addRecord',{
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({
+                            name: inputed.textContent,
+                            score: score
+                        })
+                    })
+                    const data = await res.json();
+                    if(data.ok){
+                        output.textContent = "Uspesno sacuvan rezultat";
+                        document.querySelector("#content-left-side").style.display = "none";
+                    }else{
+                        //nadamo se da se nikada nece prikazati xD
+                        output.textContent = "greska pri cuvanju rezultata";
+                    }
+                    
+                    reloadBest();
+                }
+            }else{
+                if(inputed.textContent.length <13){
+                    inputed.textContent += keyboardLayout[selected.y][selected.x];
+                }
             }
         }else{
-            inputed.textContent += keyboardLayout[selected.y][selected.x];
+            location.href = "/"
         }
     }
 } )
 
-
+const refreshLeaderboard = () => {
+    leaderboardNames.innerHTML = "";
+    leaderboardNames.appendChild(leaderboardHeaders[0]);
+    leaderboardScores.innerHTML = "";
+    leaderboardScores.appendChild(leaderboardHeaders[1]);
+}
 const reloadBest = async () =>{
     const res = await fetch('/getrecords');
     const data = await res.json();
-    leaderboard.innerHTML = "";
+    refreshLeaderboard();
     data.users.forEach(element => {
-        const li = document.createElement('li');
-        li.textContent = element.name + ':' + element.score;
-        leaderboard.appendChild(li);
+        const name = document.createElement('p');
+        name.classList.add('leaderboard-name');
+        name.textContent = element.name;
+        leaderboardNames.appendChild(name);
+        const score = document.createElement('p');
+        score.classList.add('leaderboard-score');
+        score.textContent = element.score;
+        leaderboardScores.appendChild(score);
     });
 }
 

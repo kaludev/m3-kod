@@ -115,7 +115,7 @@ h4 {
   transition: 0.5s;
 }
 
-.navigation_nav-item:hover {
+.active {
   opacity: 0.5;
 }
 
