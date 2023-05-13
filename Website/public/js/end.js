@@ -7,7 +7,7 @@ const leaderboardHeaders = document.querySelectorAll('.leaderboard-head');
 const keyboardLayout = [
     ['Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Š', 'Đ'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Č', 'Ć'],
-    ['Y', 'X', 'C', 'V', 'B', 'N', 'M', 'Ž', 'Backspace', 'Enter']
+    ['Y', 'X', 'C', 'V', 'B', 'N', 'M', 'Ž', ' ', ' ']
 ]
 let selected = {x:0,y:0};
 const createKeyboard = () => {

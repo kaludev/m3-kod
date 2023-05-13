@@ -15,6 +15,7 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    width: 100vw;
     height: 100vh;
     background-color: $pure-black;
 }
@@ -23,9 +24,6 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    width: 100%;
-    height: 100%;
 }
 
 #quizResults-header-container {
@@ -33,8 +31,8 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 25vh;
     width: 100%;
+    height: 200px;
 }
 
 #quizResults-header {
@@ -50,6 +48,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
+    height: 880px;
 }
 
 #content-left-side, #content-right-side {
@@ -58,11 +57,12 @@ body {
     align-items: center;
     justify-content: center;
     width: 50%;
+    height: 800px;
 }
 
 #content-left-side {
     padding: 1rem;
-    gap: 10em;
+    gap: 10rem;
 }
 
 
@@ -125,6 +125,7 @@ body {
     background-image: url("../images/key-unchecked.png");
     background-repeat: no-repeat;
     background-size: 65px 65px;
+    font-family: 'Joystix';
     color: $cyan;
 }
 
@@ -138,13 +139,12 @@ body {
     display: flex;
     flex-direction: row;
     width: 100%;
+    height: calc(100vh - 200px);
 }
 
 #leaderboard-names-container, #leaderboard-scores-container {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 #leaderboard-names-container {
@@ -155,7 +155,26 @@ body {
     width: 40%;
 }
 
+.leaderboard-head-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
 .leaderboard-head {
     font-size: 3.75rem;
+    text-align: center;
     color: $pink;
+}
+
+.leaderboard-name, .leaderboard-score {
+    height: fit-content;
+    font-size: 3rem;
+    color: $cyan;
+}
+
+.leaderboard-score {
+    text-align: right;
 }
