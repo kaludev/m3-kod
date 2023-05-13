@@ -4,15 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>DyslexAI - Quiz Results</title>
+    <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="./css/end.css">
 </head>
 <body>
-    <div class="inputed"></div>
-    <div class="keyboard"></div>
-    <div class="output"></div>
-    <ol class="leaderboard">
-    </ol>
+    <div id="page_quizResults-container">
+        <div id="quizResults-container">
+            <header id="quizResults-header-container">
+                <h1 id="quizResults-header">FINAL SCORE</h1>
+            </header>
+            <content id="quizResults-content-container">
+                <div id="content-left-side">
+                    <div id="input-container">
+                        <h2 id="input-label">PLAYER NAME</h2>
+                        <div id="input-input"></div>
+                    </div>
+                    <div id="keyboard-container">
+                        <div id="keyboard"></div>
+                    </div>
+                    <div class="output"></div>
+                </div>
+                <div id="content-right-side">
+                    <div id="leaderboard-container">
+                        <div id="leaderboard-names-container">
+                            <p class="leaderboard-head">NAME</p>
+                        </div>
+                        <div id="leaderboard-scores-container">
+                            <p class="leaderboard-head">SCORE</p>
+                        </div>
+                    </div>
+                </div>
+            </content>
+        </div>
+    </div>
 </body>
 <script src="./js/end.js"></script>
 </html>

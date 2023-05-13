@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\WordCounter\\SuperDictionary\\SuperDictionary.csproj": {}
+    "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\#\\SuperDictionary\\SuperDictionary.csproj": {}
   },
   "projects": {
-    "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\WordCounter\\SuperDictionary\\SuperDictionary.csproj": {
+    "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\#\\SuperDictionary\\SuperDictionary.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\WordCounter\\SuperDictionary\\SuperDictionary.csproj",
+        "projectUniqueName": "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\#\\SuperDictionary\\SuperDictionary.csproj",
         "projectName": "SuperDictionary",
-        "projectPath": "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\WordCounter\\SuperDictionary\\SuperDictionary.csproj",
+        "projectPath": "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\#\\SuperDictionary\\SuperDictionary.csproj",
         "packagesPath": "C:\\Users\\ALEKSA\\.nuget\\packages\\",
-        "outputPath": "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\WordCounter\\SuperDictionary\\obj\\",
+        "outputPath": "D:\\Desktop\\School\\Middle\\Year 3\\# M3Lab\\#\\SuperDictionary\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\ALEKSA\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -44,9 +44,9 @@
               "target": "Package",
               "version": "[13.0.3, )"
             },
-            "iTextSharp": {
+            "itext7": {
               "target": "Package",
-              "version": "[5.5.13.3, )"
+              "version": "[8.0.0, )"
             }
           },
           "imports": [

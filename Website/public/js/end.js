@@ -1,11 +1,11 @@
-const keyboard = document.querySelector('.keyboard');
-const inputed = document.querySelector('.inputed');
+const keyboard = document.querySelector('#keyboard');
+const inputed = document.querySelector('#input-input');
 const output = document.querySelector('.output');
 const leaderboard = document.querySelector('.leaderboard');
 const keyboardLayout = [
-    ['q','w','e','r','t','y','u','i','o','p'],
-    ['a','s','d','f','g','h','j','k','l','Enter'],
-    ['z','x','c','v','b','n','m','Backspace']
+    ['Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Š', 'Đ'],
+    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Č', 'Ć'],
+    ['Y', 'X', 'C', 'V', 'B', 'N', 'M', 'Ž', 'Backspace', 'Enter']
 ]
 let selected = {x:0,y:0};
 const createKeyboard = () => {

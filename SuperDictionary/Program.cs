@@ -8,8 +8,9 @@ using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
+using iText.Kernel.Pdf;
+using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using iText.Kernel.Pdf.Canvas.Parser;
 using Newtonsoft.Json;
 
 namespace SuperDictionary
@@ -276,13 +277,11 @@ namespace SuperDictionary
 
                     using (PdfReader reader = new PdfReader(file_input))
                     {
-                        sb.Clear();
-                        for (int page = 1; page <= reader.NumberOfPages; page++)
+                        PdfDocument pdfDocument = new PdfDocument(reader);
+                        for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
                         {
                             ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-                            string text = PdfTextExtractor.GetTextFromPage(reader, page, strategy);
-                            text = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default,
-                                Encoding.UTF8, Encoding.Default.GetBytes(text)));
+                            string text = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(page), strategy);
                             sb.Append(text);
                         }
                     }
