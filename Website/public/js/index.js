@@ -9,6 +9,7 @@ window.addEventListener("DOMContentLoaded", () => {
         splashScreen_Heading.classList.remove("fade");
         splashScreen_Heading.classList.add("active");
     }, 500);
+
     setTimeout(() => {
         splashScreen_Image.classList.remove("fade");
         splashScreen_Image.classList.add("active");
@@ -18,6 +19,7 @@ window.addEventListener("DOMContentLoaded", () => {
         splashScreen_Heading.classList.remove("active");
         splashScreen_Heading.classList.add("fade");
     }, 2500);
+
     setTimeout(() => {
         splashScreen_Image.classList.remove("active");
         splashScreen_Image.classList.add("fade");
@@ -35,13 +37,14 @@ window.addEventListener("DOMContentLoaded", () => {
         introductionCutscene.classList.remove("fade");
         introductionCutscene.classList.add("active");
     }, 4000);
+    
 });
 
 
 document.addEventListener("keydown" , (event) =>{
     const key = event.key;
     
-    if (skipEnabled == true && key == "f") {
-
+    if (continueEnabled == true && key == "f") {
+        location.href = "/quiz.html";
     }
 });
