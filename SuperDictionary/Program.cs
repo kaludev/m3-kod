@@ -8,9 +8,8 @@ using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using iText.Kernel.Pdf;
-using iText.Kernel.Pdf.Canvas.Parser.Listener;
-using iText.Kernel.Pdf.Canvas.Parser;
+using iTextSharp.text.pdf;
+using iTextSharp.text.pdf.parser;
 using Newtonsoft.Json;
 
 namespace SuperDictionary
@@ -25,8 +24,8 @@ namespace SuperDictionary
             char[] specialCharacters = { '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',',
                 '-', '.', '/', ':', ';', '<', '=', '>', '?', '@', '[', '\\', ']', '^', '_',
                 'º', '¿', '¬', '¡', '«', '»', '¯', '≡', '±', '‗', '÷', '°',
-                '¨', '·', '„', '…', '‰', '“', '”', '•',  '—',  '™',
-                '•', ' ', '\n', '\t', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ,'�','','','w','q','y','x'};
+                '¨', '·', '„', '…', '‰', '“', '”', '•',  '—',  '™', '–', '×',
+                '•', ' ', '\t', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9' ,'�','','','w','q','y','x'};
 
             // REPLACING SPECIAL CHARACTERS WITH BLANK CHARACTERS
             for (int w = 0; w < words.Length; w++) {
@@ -37,7 +36,11 @@ namespace SuperDictionary
                 words[w] = words[w].Replace('|', 'đ');
                 words[w] = words[w].Replace('}', 'ć');
                 words[w] = words[w].Replace('{', 'š');
-                words[w] = words[w].Replace('`', 'ž');   
+                words[w] = words[w].Replace('`', 'ž');
+                words[w] = words[w].Replace('ð', 'đ');
+                words[w] = words[w].Replace('è', 'č');
+                words[w] = words[w].Replace('æ', 'ć');
+
             }
 
             // FORMING A NEW ARRAY BY REMOVING EMPTY ELEMENTS
@@ -271,30 +274,44 @@ namespace SuperDictionary
                     // INPUT FILE ITERATIONS
                 foreach (string file_input in files_input)
                 {
+                    
                     string fileName = System.IO.Path.GetFileNameWithoutExtension(file_input);
 
                     fileName = System.IO.Path.GetFileName(fileName);
 
-                    using (PdfReader reader = new PdfReader(file_input))
+                    try
                     {
-                        PdfDocument pdfDocument = new PdfDocument(reader);
-                        for (int page = 1; page <= pdfDocument.GetNumberOfPages(); page++)
+
+                        using (PdfReader reader = new PdfReader(file_input))
                         {
-                            ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
-                            string text = PdfTextExtractor.GetTextFromPage(pdfDocument.GetPage(page), strategy);
-                            sb.Append(text);
+                            sb.Clear();
+                            for (int page = 1; page <= reader.NumberOfPages; page++)
+                            {
+                                ITextExtractionStrategy strategy = new SimpleTextExtractionStrategy();
+                                string text = PdfTextExtractor.GetTextFromPage(reader, page, strategy);
+                                text = Encoding.UTF8.GetString(ASCIIEncoding.Convert(Encoding.Default,
+                                    Encoding.UTF8, Encoding.Default.GetBytes(text)));
+                                sb.Append(text);
+                            }
                         }
+                    }
+                    //promijeni NotSupportedException u Exception ako ne bude radilo
+
+                    catch (NotSupportedException error) 
+                    {
+                        Console.WriteLine(error.Message);
                     }
 
                     string title = fileName.ToUpper();
                     Console.WriteLine(title);
-                    string s = sb.ToString();
+                    string s = sb.ToString(); 
 
                     try
                     {
                         if (!File.Exists(@$"output\{fileName}_dictionary.json"))
                         {
-                            string[] words = s.Split(" ");
+
+                            string[] words = s.Split(new Char[] { ' ', '\n' });
                             for (int w = 0; w < words.Length; w++) words[w] = words[w].ToLower();
 
                             Dictionary<string, int> unorderedDictionary =

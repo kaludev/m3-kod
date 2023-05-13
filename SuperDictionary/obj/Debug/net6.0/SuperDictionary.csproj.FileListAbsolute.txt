@@ -17,39 +17,22 @@ D:\Desktop\School\Middle\Year 3\# M3Lab\WordCounter\SuperDictionary\obj\Debug\ne
 D:\Desktop\School\Middle\Year 3\# M3Lab\WordCounter\SuperDictionary\obj\Debug\net6.0\SuperDictionary.pdb
 D:\Desktop\School\Middle\Year 3\# M3Lab\WordCounter\SuperDictionary\obj\Debug\net6.0\SuperDictionary.genruntimeconfig.cache
 D:\Desktop\School\Middle\Year 3\# M3Lab\WordCounter\SuperDictionary\obj\Debug\net6.0\ref\SuperDictionary.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\SuperDictionary.exe
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\SuperDictionary.deps.json
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\SuperDictionary.runtimeconfig.json
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\SuperDictionary.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\SuperDictionary.pdb
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.barcodes.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.bouncy-castle-connector.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.forms.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.io.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.kernel.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.layout.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.pdfa.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.sign.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.styledxmlparser.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.svg.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\itext.commons.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.Extensions.DependencyInjection.Abstractions.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.Extensions.Logging.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.Extensions.Options.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Microsoft.Extensions.Primitives.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\bin\Debug\net6.0\Newtonsoft.Json.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.csproj.AssemblyReference.cache
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.GeneratedMSBuildEditorConfig.editorconfig
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.AssemblyInfoInputs.cache
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.AssemblyInfo.cs
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.csproj.CoreCompileInputs.cache
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.csproj.CopyComplete
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\refint\SuperDictionary.dll
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.pdb
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\SuperDictionary.genruntimeconfig.cache
-D:\Desktop\School\Middle\Year 3\# M3Lab\#\SuperDictionary\obj\Debug\net6.0\ref\SuperDictionary.dll
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\SuperDictionary.exe
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\SuperDictionary.deps.json
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\SuperDictionary.runtimeconfig.json
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\SuperDictionary.dll
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\SuperDictionary.pdb
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\BouncyCastle.Crypto.dll
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\itextsharp.dll
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.csproj.AssemblyReference.cache
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.AssemblyInfoInputs.cache
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.AssemblyInfo.cs
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.csproj.CoreCompileInputs.cache
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.csproj.CopyComplete
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.dll
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\refint\SuperDictionary.dll
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.pdb
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\SuperDictionary.genruntimeconfig.cache
+C:\Users\Dusan\OneDrive\Desktop\m3-kod-master (5)\m3-kod-master\SuperDictionary\obj\Debug\net6.0\ref\SuperDictionary.dll
