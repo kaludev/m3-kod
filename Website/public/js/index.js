@@ -23,11 +23,11 @@ window.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
         splashScreen_Image.classList.remove("active");
         splashScreen_Image.classList.add("fade");
-    }, 3000);
+    }, 4000);
 
     setTimeout(() => {
         splashScreen.classList.add("fade");
-    }, 3000);
+    }, 4000);
 
     setTimeout(() => {
         continueEnabled = true;
@@ -36,7 +36,7 @@ window.addEventListener("DOMContentLoaded", () => {
         splashScreen_Image.style.display = "None";
         introductionCutscene.classList.remove("fade");
         introductionCutscene.classList.add("active");
-    }, 4000);
+    }, 5000);
     
 });
 

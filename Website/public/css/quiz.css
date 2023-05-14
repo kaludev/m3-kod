@@ -32,8 +32,7 @@
 }
 
 #quiz-body-container {
-  height: -moz-fit-content;
-  height: fit-content;
+  height: 100vh;
 }
 
 #quiz-info-container {
