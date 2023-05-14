@@ -1,6 +1,7 @@
 $pure-black: hsla(0, 0%, 0%, 1);
 $pure-white: hsla(0, 0%, 100%, 1);
 $cyan: hsla(180, 100%, 50%, 1);
+$blue: hsla(215, 50%, 50%, 1);
 $purple: hsla(265, 75%, 45%, 1);
 $pink: hsla(285, 90%, 70%, 1);
 
@@ -39,7 +40,7 @@ body {
     font-family: 'Clip', sans-serif;
     font-size: 10rem;
     color: $pure-white;
-    text-shadow: 0 0 1rem hsla(215, 50%, 50%, 1);
+    text-shadow: 0 0 1rem $blue;
 }
 
 #quizResults-content-container {
@@ -126,25 +127,51 @@ body {
     background-repeat: no-repeat;
     background-size: 65px 65px;
     font-family: 'Joystix';
+    font-size: 2rem;
     color: $cyan;
+}
+
+.keyboardEnter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 130px;
+    height: 65px;
+    background-image: url("../images/enter.png");
+    background-repeat: no-repeat;
+    background-size: 130px 65px;
+}
+
+.keyboardBackspaceIcon {
+    src: url("../images/backspace-icon.png");
+    background-repeat: no-repeat;
+    background-size: 32.5px 32.5px;
+}
+
+.keyboardEnterIcon {
+    src: url("../images/enter-icon.png");
+    background-repeat: no-repeat;
+    background-size: 65px 32.5px;
 }
 
 .selected {
     background-image: url("../images/key-hover.png");
-    color: $cyan;
+    color: $pure-black;
 }
 
 
 #leaderboard-container {
     display: flex;
     flex-direction: row;
-    width: 100%;
+    justify-content: space-around;
+    width: 90%;
     height: calc(100vh - 200px);
 }
 
 #leaderboard-names-container, #leaderboard-scores-container {
     display: flex;
     flex-direction: column;
+    gap: 4rem;
 }
 
 #leaderboard-names-container {

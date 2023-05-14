@@ -38,10 +38,26 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
+const paragraphContainer = document.querySelector("#introduction-cutscene_paragraph-container");
+const paragraphs = paragraphContainer.children;
+const imagePoincare = document.querySelector("#image-poincare");
+var continueCounter = 1;
 document.addEventListener("keydown" , (event) =>{
     const key = event.key;
     
-    if (skipEnabled == true && key == "f") {
+    if (continueEnabled == true && key == "f" && continueCounter < paragraphs.length) {
+        if (continueCounter == 1) {
+            imagePoincare.classList.remove("fade");
+            imagePoincare.classList.add("active");
+        }
 
+        paragraphs[continueCounter].classList.remove("fade");
+        paragraphs[continueCounter].classList.add("active");
+        continueCounter++;
+    }
+    else if (continueCounter === paragraphs.length) {
+        // Insert a badass (and hopefully possible) animation here
+
+        location.href = "./quiz.html";
     }
 });

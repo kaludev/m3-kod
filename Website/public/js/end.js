@@ -16,10 +16,21 @@ const createKeyboard = () => {
         row.classList.add('keyboardRow');
         for(let j = 0; j < keyboardLayout[i].length; j++) {
             let key = document.createElement('div');
-            key.classList.add('keyboardKey');
-            if(i === 0 && j === 0){
-                key.classList.add('selected');
+            if (i === 2 && j === 8) {
+                key.classList.add('keyboardKey');
+                let icon = document.createElement('img');
+                icon.classList.add("keyboardBackspaceIcon");
+                key.appendChild(icon);
             }
+            else if (i === 2 && j === 9) {
+                key.classList.add('keyboardEnter');
+                let icon = document.createElement('img');
+                icon.classList.add("keyboardEnterIcon");
+                key.appendChild(icon);
+            }
+            else if (i === 0 && j === 0) key.classList.add('selected');
+            else key.classList.add("keyboardKey");
+
             key.textContent = keyboardLayout[i][j];
             row.appendChild(key);
         }

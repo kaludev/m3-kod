@@ -116,15 +116,15 @@ h4 {
 }
 
 .paragraph-indented {
-  text-indent: 2rem;
+  text-indent: 3rem;
 }
 
 .padding-top {
-  padding-top: 2rem;
+  padding-top: 3rem;
 }
 
 .padding-y {
-  padding: 2rem 0;
+  padding: 3rem 0;
 }
 
 .important-segments {
@@ -151,7 +151,7 @@ h4 {
 }
 
 #image-poincare {
-  scale: 0.25;
+  scale: 0.375;
   top: -13%;
   left: 16.25%;
   content: url("../images/introduction-cutscene_image-poincare.png");

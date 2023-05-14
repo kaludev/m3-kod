@@ -3,7 +3,7 @@ $black: hsla(0, 0%, 5%, 1);
 $white: hsla(0, 0%, 95%, 1);
 $pure-white: hsla(0, 0%, 100%, 1);
 $background-color: hsla(0, 0%, 0%, 1);
-$cyan-pastel: hsla(205, 70%, 65%, 1);
+$blue-pastel: hsla(205, 70%, 65%, 1);
 $cyan: hsla(180, 100%, 50%, 1);
 
 
@@ -37,7 +37,7 @@ body {
 
 a, button, h1, h2, h3, h4, h5, h6, input, p {
     font-family: 'Joystix', sans-serif;
-    color: $cyan-pastel;
+    color: $blue-pastel;
     font-weight: 100;
 }
 
@@ -134,15 +134,15 @@ h4 {
 }
 
 .paragraph-indented {
-    text-indent: 2rem;
+    text-indent: 3rem;
 }
 
 .padding-top {
-    padding-top: 2rem;
+    padding-top: 3rem;
 }
 
 .padding-y {
-    padding: 2rem 0;
+    padding: 3rem 0;
 }
 
 .important-segments {
@@ -170,7 +170,7 @@ h4 {
 }
 
 #image-poincare {
-    scale: 0.25;
+    scale: 0.375;
     top: -13%;
     left: 16.25%;
     content: url("../images/introduction-cutscene_image-poincare.png");

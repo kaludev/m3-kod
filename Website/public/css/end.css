@@ -116,24 +116,50 @@ body {
   background-repeat: no-repeat;
   background-size: 65px 65px;
   font-family: "Joystix";
+  font-size: 2rem;
   color: hsl(180, 100%, 50%);
+}
+
+.keyboardEnter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 65px;
+  background-image: url("../images/enter.png");
+  background-repeat: no-repeat;
+  background-size: 130px 65px;
+}
+
+.keyboardBackspaceIcon {
+  src: url("../images/backspace-icon.png");
+  background-repeat: no-repeat;
+  background-size: 32.5px 32.5px;
+}
+
+.keyboardEnterIcon {
+  src: url("../images/enter-icon.png");
+  background-repeat: no-repeat;
+  background-size: 65px 32.5px;
 }
 
 .selected {
   background-image: url("../images/key-hover.png");
-  color: hsl(180, 100%, 50%);
+  color: hsl(0, 0%, 0%);
 }
 
 #leaderboard-container {
   display: flex;
   flex-direction: row;
-  width: 100%;
+  justify-content: space-around;
+  width: 90%;
   height: calc(100vh - 200px);
 }
 
 #leaderboard-names-container, #leaderboard-scores-container {
   display: flex;
   flex-direction: column;
+  gap: 4rem;
 }
 
 #leaderboard-names-container {

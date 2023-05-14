@@ -5,13 +5,13 @@ const questions = [
         "answerCorrect": "Ne može"
     },
     {
-        "question": "Miš je udaljen od od svog skloništa 20 koraka. Mačka je udaljena od miša 5 skokova. Dok mačka jedanput skoči, miš načini 3 koraka, ali je jedan skok mačke velik kao 10 miševih koraka. Da li će mačka uhvatiti miša?",
-        "answers": ["Miš će umaći mački za jedan korak", "Miš će umaći mački za dva koraka", "Mačka će uhvatiti miša","nesto"],
+        "question": "Miš je udaljen od svog skloništa 20 koraka. Mačka je udaljena od miša 5 skokova. Dok mačka jedanput skoči, miš načini 3 koraka, ali je jedan skok mačke velik kao 10 miševih koraka. Da li će mačka uhvatiti miša?",
+        "answers": ["Miš će umaći mački za jedan korak", "Miš će umaći mački za dva koraka", "Mačka će uhvatiti miša",],
         "answerCorrect": "Miš će umaći mački za jedan korak"
     },
     {
-        "question": "Za lonac s poklopcem plaćeno je 1.200 dinara. Lonac je skuplji od poklopca 1.000 dinara. Koliko košta poklopac?",
-        "answers": ["Poklopac košta 100 dinara", "Poklopac košta 200 dinara", "Poklopac košta 1100 dinara", "Poklopac košta 1000 dinara"],
+        "question": "Za lonac s poklopcem plaćeno je 1,200 dinara. Lonac je skuplji od poklopca 1,000 dinara. Koliko košta poklopac?",
+        "answers": ["Poklopac košta 100 dinara", "Poklopac košta 200 dinara", "Poklopac košta 1,100 dinara", "Poklopac košta 1,000 dinara"],
         "answerCorrect": "Poklopac košta 100 dinara"
     },
     {
@@ -40,7 +40,7 @@ const questions = [
         "answerCorrect": "Nije moguće"
     },
     {
-        "question": "Sinu je 9 godina , a ocu je 35. Kada će otac biti tri puta stariji od sina?",
+        "question": "Sinu je 9 godina, a ocu je 35. Kada će otac biti tri puta stariji od sina?",
         "answers": ["Kada sin bude imao 10 godina", "Kada sin bude imao 13 godina", "Kada sin bude imao 15 godina"],
         "answerCorrect": "Kada sin bude imao 13 godina"
     },
@@ -55,5 +55,3 @@ const questions = [
         "answerCorrect": "Imaće ukupno 40 godina"
     }
 ];
-
-export default questions;
