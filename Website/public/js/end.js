@@ -1,9 +1,8 @@
 const keyboard = document.querySelector('#keyboard');
 const inputed = document.querySelector('#input-input');
 const output = document.querySelector('.output');
-const leaderboardNames = document.querySelector('#leaderboard-names-container');
-const leaderboardScores = document.querySelector('#leaderboard-scores-container');
-const leaderboardHeaders = document.querySelectorAll('.leaderboard-head');
+const leaderboardNames = document.querySelector('#leaderboard-names');
+const leaderboardScores = document.querySelector('#leaderboard-scores');
 const keyboardLayout = [
     ['Q', 'W', 'E', 'R', 'T', 'Z', 'U', 'I', 'O', 'P', 'Š', 'Đ'],
     ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Č', 'Ć'],
@@ -14,22 +13,18 @@ const createKeyboard = () => {
     for(let i = 0; i < keyboardLayout.length;i++){
         let row = document.createElement('div');
         row.classList.add('keyboardRow');
-        for(let j = 0; j < keyboardLayout[i].length; j++) {
+        for (let j = 0; j < keyboardLayout[i].length; j++) {
             let key = document.createElement('div');
+            key.classList.add("keyboardKey");
             if (i === 2 && j === 8) {
-                key.classList.add('keyboardKey');
-                let icon = document.createElement('img');
-                icon.classList.add("keyboardBackspaceIcon");
-                key.appendChild(icon);
+                key.classList.add('keyboardBackspace');
             }
             else if (i === 2 && j === 9) {
                 key.classList.add('keyboardEnter');
-                let icon = document.createElement('img');
-                icon.classList.add("keyboardEnterIcon");
-                key.appendChild(icon);
             }
-            else if (i === 0 && j === 0) key.classList.add('selected');
-            else key.classList.add("keyboardKey");
+            else if (i === 0 && j === 0) {
+                key.classList.add('keyboardKey-hover');
+            }
 
             key.textContent = keyboardLayout[i][j];
             row.appendChild(key);
@@ -37,16 +32,34 @@ const createKeyboard = () => {
         keyboard.appendChild(row);
     }
 }
+
 createKeyboard();
+
 const clearSelected = () => {
-    document.querySelector('.selected').classList.remove('selected');
+    if (document.querySelector('.keyboardBackspace').classList.contains('keyboardBackspace-hover')) {
+        document.querySelector('.keyboardBackspace-hover').classList.remove('keyboardBackspace-hover');
+    }
+    else if (document.querySelector('.keyboardEnter').classList.contains('keyboardEnter-hover')) {
+        document.querySelector('.keyboardEnter-hover').classList.remove('keyboardEnter-hover');
+    }
+    else document.querySelector('.keyboardKey-hover').classList.remove('keyboardKey-hover');
 };
 
 const reloadSelected = () => {
-    document.querySelectorAll('.keyboardRow')[selected.y].querySelectorAll('.keyboardKey')[selected.x].classList.add('selected');
+    if (selected.x == 8 && selected.y == 2) {
+        document.querySelectorAll('.keyboardRow')[selected.y].querySelectorAll('.keyboardKey')[selected.x].classList.add('keyboardBackspace-hover');
+    }
+    else if (selected.x == 9 && selected.y == 2) {
+        document.querySelectorAll('.keyboardRow')[selected.y].querySelectorAll('.keyboardKey')[selected.x].classList.add('keyboardEnter-hover');
+    }
+    else {
+        document.querySelectorAll('.keyboardRow')[selected.y].querySelectorAll('.keyboardKey')[selected.x].classList.add('keyboardKey-hover');
+    }
 }
+
 document.addEventListener("keydown" , async(event) =>{
     const keyName = event.key;
+
     if (keyName == "ArrowUp"){
         clearSelected();
         selected.y--;
@@ -55,7 +68,7 @@ document.addEventListener("keydown" , async(event) =>{
             selected.x = keyboardLayout[selected.y].length-1;
         }
         reloadSelected();
-    }else if(keyName == "ArrowDown"){
+    } else if(keyName == "ArrowDown"){
         clearSelected();
         selected.y++;
         selected.y =  ((selected.y%keyboardLayout.length)+keyboardLayout.length)%keyboardLayout.length;
@@ -63,24 +76,24 @@ document.addEventListener("keydown" , async(event) =>{
             selected.x = keyboardLayout[selected.y].length-1;
         }
         reloadSelected();
-    }else if(keyName == "ArrowLeft"){
+    } else if (keyName == "ArrowLeft"){
         clearSelected();
         selected.x--;
         selected.x =  ((selected.x%keyboardLayout[selected.y].length)+keyboardLayout[selected.y].length)%keyboardLayout[selected.y].length;
         reloadSelected();
-    }else if(keyName == "ArrowRight"){
+    } else if(keyName == "ArrowRight"){
         clearSelected();
         selected.x++;
         selected.x =  ((selected.x%keyboardLayout[selected.y].length)+keyboardLayout[selected.y].length)%keyboardLayout[selected.y].length; 
         reloadSelected();
-    }else if(keyName == "f"){
+    } else if (keyName == "f"){
         const uploaded = getCookie("uploaded");
-        if(!uploaded){
-            if(keyboardLayout[selected.y][selected.x] === 'Backspace'){
-                if(inputed.textContent.length > 0){
+        if (!uploaded) {
+            if (selected.y == 2 && selected.x == 8){
+                if (inputed.textContent.length > 0){
                     inputed.textContent = inputed.textContent.substring(0, inputed.textContent.length-1);
                 }
-            }else if(keyboardLayout[selected.y][selected.x] === 'Enter'){
+            } else if (selected.y == 2 && selected.x == 9){
                 const uploaded = getCookie("uploaded");
                 if(!uploaded){
                     setCookie("uploaded","1");
@@ -112,27 +125,22 @@ document.addEventListener("keydown" , async(event) =>{
                     inputed.textContent += keyboardLayout[selected.y][selected.x];
                 }
             }
-        }else{
+        } else{
             location.href = "/"
         }
     }
-} )
+});
 
-const refreshLeaderboard = () => {
-    leaderboardNames.innerHTML = "";
-    leaderboardNames.appendChild(leaderboardHeaders[0]);
-    leaderboardScores.innerHTML = "";
-    leaderboardScores.appendChild(leaderboardHeaders[1]);
-}
+
 const reloadBest = async () =>{
     const res = await fetch('/getrecords');
     const data = await res.json();
-    refreshLeaderboard();
     data.users.forEach(element => {
         const name = document.createElement('p');
         name.classList.add('leaderboard-name');
         name.textContent = element.name;
         leaderboardNames.appendChild(name);
+
         const score = document.createElement('p');
         score.classList.add('leaderboard-score');
         score.textContent = element.score;

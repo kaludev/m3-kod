@@ -35,7 +35,7 @@ h1 {
   font-family: "Clip", sans-serif;
   font-size: 7.5rem;
   color: hsl(0, 0%, 100%);
-  text-shadow: 0 0 1rem hsl(215, 50%, 50%);
+  animation: flicker 3s infinite alternate;
 }
 
 h2 {
@@ -167,4 +167,13 @@ h4 {
   bottom: 2%;
   right: 1%;
   content: url("../images/introduction-cutscene_image-2.png");
+}
+
+@keyframes flicker {
+  0%, 18%, 22%, 25%, 53%, 57%, 100% {
+    text-shadow: 0 0 5px hsl(205, 75%, 50%), 0 0 10px hsl(205, 75%, 50%), 0 0 15px hsl(205, 75%, 50%), 0 0 20px hsl(205, 75%, 50%), 0 0 25px hsl(205, 75%, 50%);
+  }
+  20%, 24%, 55% {
+    text-shadow: none;
+  }
 }/*# sourceMappingURL=main.css.map */

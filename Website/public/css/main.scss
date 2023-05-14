@@ -2,7 +2,7 @@ $pure-black: hsla(0, 0%, 0%, 1);
 $black: hsla(0, 0%, 5%, 1);
 $white: hsla(0, 0%, 95%, 1);
 $pure-white: hsla(0, 0%, 100%, 1);
-$background-color: hsla(0, 0%, 0%, 1);
+$neon-blue: hsla(205, 75%, 50%, 1);
 $blue-pastel: hsla(205, 70%, 65%, 1);
 $cyan: hsla(180, 100%, 50%, 1);
 
@@ -32,7 +32,7 @@ $cyan: hsla(180, 100%, 50%, 1);
 }
 
 body {
-    background-color: $background-color;
+    background-color: $pure-black;
 }
 
 a, button, h1, h2, h3, h4, h5, h6, input, p {
@@ -49,7 +49,7 @@ h1 {
     font-family: 'Clip', sans-serif;
     font-size: 7.5rem;
     color: $pure-white;
-    text-shadow: 0 0 1rem hsla(215, 50%, 50%, 1);
+    animation: flicker 3s infinite alternate;
 }
 
 h2 {
@@ -186,4 +186,20 @@ h4 {
     bottom: 2%;
     right: 1%;
     content: url("../images/introduction-cutscene_image-2.png");
+}
+
+
+
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow:
+            0 0 5px $neon-blue,
+            0 0 10px $neon-blue,
+            0 0 15px $neon-blue,
+            0 0 20px $neon-blue,
+            0 0 25px $neon-blue;
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
 }
