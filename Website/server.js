@@ -25,13 +25,12 @@ app.post('/addrecord', async (req, res) => {
     if(!score){
       throw new BadRequestError("score is required");
     }
+
     users.push({
       name:name,
       score:score,
     })
-    
     writeFileSync(join(__dirname,'users','users.json'), JSON.stringify(users));
-
     res.status(200).json({
       ok: true,
       message: 'Successfully created record'

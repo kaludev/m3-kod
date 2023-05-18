@@ -17,8 +17,7 @@ var counter_answerCorrect = 0;
 // var answersCorrect = [];
 var answers_Element = [];
 
-var timerLimit = 60;
-var timer = timerLimit;
+var timer;
 quizTimer.textContent = timer;
 timer--;
 
@@ -49,9 +48,6 @@ let words;
 const endQuiz = () => {
     clearInterval(timerInterval);
 
-    console.log(`(${counter_answerCorrect} / ${number_questions}) * (${timerLimit} / (${timerLimit - timer}))`)
-    score = Math.round((counter_answerCorrect / number_questions) * (timerLimit / (timerLimit - timer)) * Math.pow(10, 2));
-
     location.href = "/end.html";
 }
 
@@ -64,6 +60,7 @@ const shuffleArray = (array) => {
 }
 
 const loadQuestion = (i) => {
+    timer = questions[i].timer;
     textContent = questions[i].question;
     words = textContent.split(' ');
     quizQuestion.textContent = questions[i].question;
@@ -76,7 +73,7 @@ const loadAnswers = (a) => {
     }
 
     for (i = 0; i < questions[a].answers.length; i++) {
-        if (answers[i] == questions[a].answerCorrect) answerCorrect = i;
+        if (i === questions[a].correctAnswer) answerCorrect = i;
     }
     quizAnswersContainer.innerHTML = "";
     answers_Element = [];
@@ -175,7 +172,7 @@ document.addEventListener("keydown" , (event) =>{
             if (correctAnswer) {
                 answerCheckCorrect(answerSelected_Element);
                 counter_answerCorrect++;
-                score += 10;
+                score += Math.floor(questions[i].timer / (questions[i].timer - timer) * 10);
                 audio.src = "./sfx/answer-right.mp3";
             }
             else {
@@ -236,9 +233,9 @@ const shuffleLetters = (letters) => {
     for (var i = 1; i < letters.length - 1; i++) {
         middle[i - 1] = letters[i];
     }
-    console.log(middle);
+    // console.log(middle);
 
-    console.log(`${first} + ${middle} + ${last}`);
+    // console.log(`${first} + ${middle} + ${last}`);
     
     var currentIndex = middle.length - 1;
     var randomIndex;
@@ -246,7 +243,7 @@ const shuffleLetters = (letters) => {
   
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * (currentIndex + 1));
-        console.log(`shuffleLetters(): randomIndex = ${randomIndex} | currentIndex = ${currentIndex}`);
+        // console.log(`shuffleLetters(): randomIndex = ${randomIndex} | currentIndex = ${currentIndex}`);
         currentIndex--;
     
         temporaryIndex = middle[currentIndex];

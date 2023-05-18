@@ -117,16 +117,7 @@ document.addEventListener("keydown" , async(event) =>{
                         //nadamo se da se nikada nece prikazati xD
                         output.textContent = "greska pri cuvanju rezultata";
                     }
-                    //bez ove fje se ne aploaduje novi rez
                     
-                    while (leaderboardNames.firstChild) {
-                        leaderboardNames.removeChild(leaderboardNames.firstChild);
-                    }
-                    
-                    while (leaderboardScores.firstChild) {
-                        leaderboardScores.removeChild(leaderboardScores.firstChild);
-                    }
-
                     reloadBest();
                 }
             }else{
@@ -156,8 +147,7 @@ const reloadBest = async () =>{
         leaderboardScores.appendChild(score);
     });
 }
-//bez ove fje nemam leaderboard pored tastature
-//kad se klikne ENTER ispis ove fje mora da nestane
+
 reloadBest();
 
 function setCookie(name,value,days) {
